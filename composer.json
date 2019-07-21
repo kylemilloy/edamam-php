@@ -1,6 +1,7 @@
 {
   "name": "kylemilloy/edamam-php",
   "description": "PHP Library for the Edamam API",
+  "version": "0.1.0",
   "type": "library",
   "license": "MIT",
   "authors": [
