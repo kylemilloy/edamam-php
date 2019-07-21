@@ -18,4 +18,8 @@
             <directory suffix=".php">app/</directory>
         </whitelist>
     </filter>
+    <php>
+        <env name="EDAMAM_ID" value="app_id"/>
+        <env name="EDAMAM_KEY" value="app_key"/>
+    </php>
 </phpunit>
