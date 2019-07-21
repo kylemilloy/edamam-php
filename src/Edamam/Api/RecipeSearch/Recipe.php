@@ -1,6 +1,6 @@
 <?php
 
-namespace Edamam\Api;
+namespace Edamam\Api\RecipeSearch;
 
 use Edamam\Abstracts\ApiRequest;
 
@@ -25,19 +25,6 @@ class Recipe extends ApiRequest
         'excludedIngredients',
         'numberOfIngredients',
     ];
-
-    /**
-     * Instantiate the object.
-     *
-     * @param string|null $appId
-     * @param string|null $appKey
-     */
-    public function __construct(?string $appId = null, ?string $appKey = null)
-    {
-        if (2 === func_num_args()) {
-            self::setApiCredentials($appId, $appKey);
-        }
-    }
 
     /**
      * Return the Food instance.
@@ -538,7 +525,7 @@ class Recipe extends ApiRequest
      */
     protected function getRequestPath()
     {
-        return 'search';
+        return '/search';
     }
 
     /**

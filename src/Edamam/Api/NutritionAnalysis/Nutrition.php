@@ -1,6 +1,6 @@
 <?php
 
-namespace Edamam\Api;
+namespace Edamam\Api\NutritionAnalysis;
 
 use Edamam\Abstracts\ApiRequest;
 
@@ -13,7 +13,6 @@ class Nutrition extends ApiRequest
      */
     protected $allowedQueryParameters = [
         'url',
-        'force',
         'image',
         'title',
         'yield',
@@ -21,9 +20,10 @@ class Nutrition extends ApiRequest
         'summary',
         'dishType',
         'mealType',
-        'totalTime',
         'ingredients',
         'instructions',
+        'forceReevaluation',
+        'totalPreperationTime',
     ];
 
     /**
@@ -36,16 +36,16 @@ class Nutrition extends ApiRequest
     protected $url;
 
     /**
-     * Url of the recipe’s location.
+     * Forces the re-evaluation of the recipe. The value, if any, is ignored.
      *
      * @var bool
      *
      * @see https://developer.edamam.com/edamam-docs-nutrition-api
      */
-    protected $force;
+    protected $forceReevaluation;
 
     /**
-     * Url of the recipe’s location.
+     * Image link (absolute).
      *
      * @var string
      *
@@ -54,7 +54,7 @@ class Nutrition extends ApiRequest
     protected $image;
 
     /**
-     * Url of the recipe’s location.
+     * Common name of the recipe.
      *
      * @var string
      *
@@ -63,7 +63,7 @@ class Nutrition extends ApiRequest
     protected $title;
 
     /**
-     * Url of the recipe’s location.
+     * Number of servings.
      *
      * @var int
      *
@@ -72,7 +72,7 @@ class Nutrition extends ApiRequest
     protected $yield;
 
     /**
-     * Url of the recipe’s location.
+     * Type of cuisine.
      *
      * @var string
      *
@@ -81,7 +81,7 @@ class Nutrition extends ApiRequest
     protected $cuisine;
 
     /**
-     * Url of the recipe’s location.
+     * A short description of the recipe.
      *
      * @var string
      *
@@ -90,7 +90,7 @@ class Nutrition extends ApiRequest
     protected $summary;
 
     /**
-     * Url of the recipe’s location.
+     * Type of dish.
      *
      * @var string
      *
@@ -99,7 +99,7 @@ class Nutrition extends ApiRequest
     protected $dishType;
 
     /**
-     * Url of the recipe’s location.
+     * Type of meal.
      *
      * @var string
      *
@@ -108,44 +108,31 @@ class Nutrition extends ApiRequest
     protected $mealType;
 
     /**
-     * Url of the recipe’s location.
+     * Total time for preparation.
      *
      * @var int
      *
      * @see https://developer.edamam.com/edamam-docs-nutrition-api
      */
-    protected $totalTime;
+    protected $totalPreperationTime;
 
     /**
-     * Url of the recipe’s location.
+     * Ingredients (array of strings).
      *
      * @var array
      *
      * @see https://developer.edamam.com/edamam-docs-nutrition-api
      */
-    protected $ingredients;
+    protected $ingredients = [];
 
     /**
-     * Url of the recipe’s location.
+     * Preparation instructions (free text).
      *
      * @var string
      *
      * @see https://developer.edamam.com/edamam-docs-nutrition-api
      */
     protected $instructions;
-
-    /**
-     * Instantiate the object.
-     *
-     * @param string|null $appId
-     * @param string|null $appKey
-     */
-    public function __construct(?string $appId = null, ?string $appKey = null)
-    {
-        if (2 === func_num_args()) {
-            self::setApiCredentials($appId, $appKey);
-        }
-    }
 
     /**
      * Return the Food instance.
@@ -176,21 +163,41 @@ class Nutrition extends ApiRequest
     }
 
     /**
-     * Get/set the force attribute.
+     * Get/set the forceReevaluation attribute.
      *
-     * @param bool|null $force
+     * @param bool|null $forceReevaluation
      *
      * @return mixed
      */
-    public function force(?bool $force = null)
+    public function forceReevaluation(?bool $forceReevaluation = null)
     {
         if (1 === func_num_args()) {
-            $this->force = $force;
+            $this->forceReevaluation = $forceReevaluation;
 
             return $this;
         }
 
-        return $this->force;
+        return $this->forceReevaluation;
+    }
+
+    /**
+     * Force API to re-evaluate recipe.
+     *
+     * @return mixed
+     */
+    public function enableRecipeReevaluation()
+    {
+        return $this->forceReevaluation(true);
+    }
+
+    /**
+     * Prevent API from re-evaluating recipe.
+     *
+     * @return mixed
+     */
+    public function disableRecipeReevaluation()
+    {
+        return $this->forceReevaluation(null);
     }
 
     /**
@@ -209,18 +216,6 @@ class Nutrition extends ApiRequest
         }
 
         return $this->image;
-    }
-
-    /**
-     * Syntactic sugar for the 'image' method.
-     *
-     * @param string|null $image
-     *
-     * @return mixed
-     */
-    public function img(?string $image = null)
-    {
-        return $this->image($image);
     }
 
     /**
@@ -332,33 +327,21 @@ class Nutrition extends ApiRequest
     }
 
     /**
-     * Get/set the totalTime attribute.
+     * Get/set the totalPreperationTime attribute.
      *
-     * @param string|null $totalTime
+     * @param string|null $totalPreperationTime
      *
      * @return mixed
      */
-    public function totalTime(?int $totalTime = null)
+    public function totalPreperationTime(?int $totalPreperationTime = null)
     {
         if (1 === func_num_args()) {
-            $this->totalTime = $totalTime;
+            $this->totalPreperationTime = $totalPreperationTime;
 
             return $this;
         }
 
-        return $this->totalTime;
-    }
-
-    /**
-     * Syntactic sugar for the 'totalTime' method.
-     *
-     * @param string|null $totalTime
-     *
-     * @return mixed
-     */
-    public function ttime(?int $totalTime = null)
-    {
-        return $this->totalTime($totalTime);
+        return $this->totalPreperationTime;
     }
 
     /**
@@ -384,18 +367,6 @@ class Nutrition extends ApiRequest
     }
 
     /**
-     * Syntactic sugar for the ingredients attribute.
-     *
-     * @param mixed $ingredients
-     *
-     * @return mixed
-     */
-    public function ingr($ingredients = null)
-    {
-        return $this->ingredients($ingredients);
-    }
-
-    /**
      * Get/set the instructions attribute.
      *
      * @param string|null $instructions
@@ -411,18 +382,6 @@ class Nutrition extends ApiRequest
         }
 
         return $this->instructions;
-    }
-
-    /**
-     * Syntactic sugar for the 'instructions' method.
-     *
-     * @param string|null $instructions
-     *
-     * @return mixed
-     */
-    public function prep(?string $instructions = null)
-    {
-        return $this->instructions($instructions);
     }
 
     /**
@@ -454,7 +413,7 @@ class Nutrition extends ApiRequest
      */
     protected function getRequestPath()
     {
-        return 'nutrition-details';
+        return '/api/nutrition-details';
     }
 
     /**
@@ -471,11 +430,12 @@ class Nutrition extends ApiRequest
             'yield' => $this->yield(),
             'cuisine' => $this->cuisine(),
             'summary' => $this->summary(),
-            'ttime' => $this->totalTime(),
             'ingr' => $this->ingredients(),
             'dishtype' => $this->dishType(),
+            'prep' => $this->instructions(),
             'mealtype' => $this->mealType(),
-            'prep' => $this->preperationInstructions(),
+            'force' => $this->forceReevaluation(),
+            'ttime' => $this->totalPreperationTime(),
         ]);
     }
 }

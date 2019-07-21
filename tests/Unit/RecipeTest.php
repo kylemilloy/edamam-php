@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Edamam\Api\Recipe;
+use Edamam\Api\RecipeSearch\Recipe;
 
 class RecipeTest extends TestCase
 {

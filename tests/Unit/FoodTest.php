@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Edamam\Api\Food;
+use Edamam\Api\FoodDatabase\Food;
 
 class FoodTest extends TestCase
 {
@@ -224,5 +224,16 @@ class FoodTest extends TestCase
         ];
 
         Food::instance()->setQueryParameters($parameters);
+    }
+
+    /** @test */
+    public function it_can_fetch_a_json_response_from_the_api()
+    {
+        $response = $this->food->ingredient('beer')->fetch();
+        $json = $this->food->results();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertJson($response->getBody());
+        $this->assertJson($json);
     }
 }

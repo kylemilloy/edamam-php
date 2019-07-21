@@ -11,7 +11,7 @@ abstract class ApiRequest
      *
      * @return string
      */
-    const BASE_URL = 'https://api.edamam.com/api';
+    const BASE_URL = 'https://api.edamam.com';
 
     /**
      * The allowed parameters to mass-assign.
@@ -35,15 +35,24 @@ abstract class ApiRequest
     public static $appKey;
 
     /**
-     * Instantiate the instance.
+     * Instantiate the object.
      *
      * @param string|null $appId
      * @param string|null $appKey
      */
-    public function __construct(?string $appId, ?string $appKey)
+    public function __construct(?string $appId = null, ?string $appKey = null)
     {
-        $this->setApiCredentials($appId, $appKey);
+        if (2 === func_num_args()) {
+            self::setApiCredentials($appId, $appKey);
+        }
     }
+
+    /**
+     * Return the class' instance.
+     *
+     * @return self
+     */
+    abstract public static function instance();
 
     /**
      * Return the API Credentials.
@@ -70,11 +79,19 @@ abstract class ApiRequest
         self::$appKey = $appKey;
     }
 
-    protected function fetch()
+    /**
+     * Perform the API request.
+     *
+     * @return \GuzzleHttp\Psr7\Response
+     */
+    public function fetch()
     {
         return (new \GuzzleHttp\Client())
-            ->request($this->getRequestMethod(), $this->getRequestUrl(), $this->getRequestParameters())
-            ->getBody();
+            ->request(
+                $this->getRequestMethod(),
+                $this->getRequestUrl(),
+                $this->getRequestParameters()
+            );
     }
 
     /**
@@ -86,15 +103,11 @@ abstract class ApiRequest
      *
      * @return \Psr\Http\Message\StreamInterface
      */
-    public function results($query = null)
+    public function results()
     {
-        if (1 == func_num_args()) {
-            $this->setQueryParameters($query);
-        }
-
         $this->validate();
 
-        return $this->fetch();
+        return $this->fetch()->getBody();
     }
 
     /**

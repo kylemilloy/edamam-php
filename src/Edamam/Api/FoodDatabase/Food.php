@@ -1,8 +1,7 @@
 <?php
 
-namespace Edamam\Api;
+namespace Edamam\Api\FoodDatabase;
 
-use Edamam\Edamam;
 use Edamam\Abstracts\ApiRequest;
 
 class Food extends ApiRequest
@@ -94,19 +93,6 @@ class Food extends ApiRequest
     protected $categoryLabel;
 
     /**
-     * Instantiate the object.
-     *
-     * @param string|null $appId
-     * @param string|null $appKey
-     */
-    public function __construct(?string $appId = null, ?string $appKey = null)
-    {
-        if (2 === func_num_args()) {
-            self::setApiCredentials($appId, $appKey);
-        }
-    }
-
-    /**
      * Return the Food instance.
      *
      * @return self
@@ -138,18 +124,6 @@ class Food extends ApiRequest
         }
 
         return $this->ingredient;
-    }
-
-    /**
-     * Syntactic sugar for 'ingredient' method to match Edamam's API.
-     *
-     * @param string|null $ingredient
-     *
-     * @return mixed
-     */
-    public function ingr(?string $ingredient = null)
-    {
-        return $this->ingredient($ingredient);
     }
 
     /**
@@ -385,7 +359,7 @@ class Food extends ApiRequest
      */
     protected function getRequestPath()
     {
-        return '/food-database/parser';
+        return '/api/food-database/parser';
     }
 
     /**

@@ -14,7 +14,7 @@ Install with composer using `composer require kylemilloy/edamam-php`
 ## Basic usage
 
 ```php
-use Edamam\Api\Food;
+use Edamam\Api\FoodDatabase\Food;
 
 // Set the API credentials
 Food::setApiCredentials('app_id', 'app_key');
@@ -51,11 +51,10 @@ Examples:
 
 ```php
 use Edamam\Edamam;
-use Edamam\Api\Food;
+use Edamam\Api\FoodDatabase\Food;
 
 Food::instance()
     ->ingredient('beer') // or ->upc('012345678901')
-    ->ingr('beer') // also works to match Edamam API
     ->enableFoodLogging()
     ->disableFoodLogging()
     ->nutritionType('logging')
