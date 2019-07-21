@@ -4,7 +4,7 @@ namespace Edamam\Api\NutritionAnalysis;
 
 use Edamam\Interfaces\InstantiatorInterface;
 
-class Recipe extends NutritionAnalysisRequestor implements InstantiatorInterface
+class Food extends NutritionAnalysisRequestor implements InstantiatorInterface
 {
     /**
      * The allowed parameters to mass-assign.

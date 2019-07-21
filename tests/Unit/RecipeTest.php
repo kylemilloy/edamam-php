@@ -3,30 +3,31 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Edamam\Api\RecipeSearch\Recipe;
+use Edamam\Api\RecipeSearch\Search;
+use Edamam\Api\RecipeSearch\RecipeSearch;
 
 class RecipeTest extends TestCase
 {
     /**
      * The Recipe instance.
      *
-     * @var \Edamam\Recipe
+     * @var \Edamam\Api\RecipeSearch\Search
      */
-    protected $recipe;
+    protected $search;
 
     public function setUp()
     {
         parent::setUp();
 
-        Recipe::setApiCredentials(getenv('RECIPE_ID'), getenv('RECIPE_KEY'));
+        RecipeSearch::setApiCredentials(getenv('RECIPE_ID'), getenv('RECIPE_KEY'));
 
-        $this->recipe = Recipe::instance();
+        $this->search = Search::instance();
     }
 
     /** @test */
     public function it_can_return_an_instance_of_itself()
     {
-        $this->assertInstanceOf(Recipe::class, new Recipe());
-        $this->assertInstanceOf(Recipe::class, Recipe::instance());
+        $this->assertInstanceOf(Search::class, new Search());
+        $this->assertInstanceOf(Search::class, Search::instance());
     }
 }
