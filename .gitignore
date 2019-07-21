@@ -1,0 +1,15 @@
+*.iml
+.idea
+vendor
+.php_cs
+.vscode
+coverage
+.DS_Store
+Carbon-*.zip
+coverage.xml
+.php_cs.cache
+composer.lock
+composer.phar
+.phpunit.result.cache
+vendor
+phpunit.xml
