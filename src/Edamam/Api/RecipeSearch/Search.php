@@ -2,9 +2,9 @@
 
 namespace Edamam\Api\RecipeSearch;
 
-use Edamam\Abstracts\ApiRequest;
+use Edamam\Interfaces\InstantiatorInterface;
 
-class Recipe extends ApiRequest
+class Search extends RecipeSearchRequestor implements InstantiatorInterface
 {
     /**
      * The allowed parameters to mass-assign.
@@ -27,11 +27,11 @@ class Recipe extends ApiRequest
     ];
 
     /**
-     * Return the Food instance.
+     * Return the instance.
      *
      * @return self
      */
-    public static function instance(): self
+    public static function instance(): InstantiatorInterface
     {
         return new self();
     }

@@ -2,9 +2,9 @@
 
 namespace Edamam\Api\FoodDatabase;
 
-use Edamam\Abstracts\ApiRequest;
+use Edamam\Interfaces\InstantiatorInterface;
 
-class Food extends ApiRequest
+class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
 {
     /**
      * The allowed parameters to mass-assign.
@@ -93,11 +93,11 @@ class Food extends ApiRequest
     protected $categoryLabel;
 
     /**
-     * Return the Food instance.
+     * Return the instance.
      *
-     * @return self
+     * @return \Edamam\Interfaces\InstantiatorInterface
      */
-    public static function instance(): self
+    public static function instance(): InstantiatorInterface
     {
         return new self();
     }
@@ -149,6 +149,24 @@ class Food extends ApiRequest
     }
 
     /**
+     * Get/set the nutrition type.
+     *
+     * @param string|null $nutritionType
+     *
+     * @return mixed
+     */
+    public function nutritionType(?string $nutritionType = null)
+    {
+        if (1 === func_num_args()) {
+            $this->nutritionType = $nutritionType;
+
+            return $this;
+        }
+
+        return $this->nutritionType;
+    }
+
+    /**
      * Enable food logging.
      *
      * @return self
@@ -166,24 +184,6 @@ class Food extends ApiRequest
     public function disableFoodLogging(): self
     {
         return $this->nutritionType(null);
-    }
-
-    /**
-     * Get/set the nutrition type.
-     *
-     * @param string|null $nutritionType
-     *
-     * @return mixed
-     */
-    public function nutritionType(?string $nutritionType = null)
-    {
-        if (1 === func_num_args()) {
-            $this->nutritionType = $nutritionType;
-
-            return $this;
-        }
-
-        return $this->nutritionType;
     }
 
     /**

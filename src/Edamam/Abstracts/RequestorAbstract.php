@@ -4,7 +4,7 @@ namespace Edamam\Abstracts;
 
 use Edamam\Edamam;
 
-abstract class ApiRequest
+abstract class RequestorAbstract
 {
     /**
      * The API base URL.
@@ -21,20 +21,6 @@ abstract class ApiRequest
     protected $allowedQueryParameters = [];
 
     /**
-     * The Edamam application ID.
-     *
-     * @var string
-     */
-    public static $appId;
-
-    /**
-     * The Edamam application key.
-     *
-     * @var string
-     */
-    public static $appKey;
-
-    /**
      * Instantiate the object.
      *
      * @param string|null $appId
@@ -48,36 +34,11 @@ abstract class ApiRequest
     }
 
     /**
-     * Return the class' instance.
-     *
-     * @return self
-     */
-    abstract public static function instance();
-
-    /**
      * Return the API Credentials.
      *
      * @return array
      */
-    public static function getApiCredentials(): array
-    {
-        return [
-            'app_id' => self::$appId,
-            'app_key' => self::$appKey,
-        ];
-    }
-
-    /**
-     * Set the App Id and App Key.
-     *
-     * @param string $appId
-     * @param string $appKey
-     */
-    public static function setApiCredentials(string $appId, string $appKey)
-    {
-        self::$appId = $appId;
-        self::$appKey = $appKey;
-    }
+    abstract public static function getApiCredentials(): array;
 
     /**
      * Perform the API request.
@@ -118,7 +79,7 @@ abstract class ApiRequest
     }
 
     /**
-     * Return the request's metho.
+     * Return the request's method.
      *
      * @return string
      */

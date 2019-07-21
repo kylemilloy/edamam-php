@@ -2,9 +2,9 @@
 
 namespace Edamam\Api\NutritionAnalysis;
 
-use Edamam\Abstracts\ApiRequest;
+use Edamam\Interfaces\InstantiatorInterface;
 
-class Nutrition extends ApiRequest
+class Recipe extends NutritionAnalysisRequestor implements InstantiatorInterface
 {
     /**
      * The allowed parameters to mass-assign.
@@ -135,11 +135,11 @@ class Nutrition extends ApiRequest
     protected $instructions;
 
     /**
-     * Return the Food instance.
+     * Return the Recipe instance.
      *
      * @return self
      */
-    public static function instance(): self
+    public static function instance(): InstantiatorInterface
     {
         return new self();
     }
@@ -397,7 +397,7 @@ class Nutrition extends ApiRequest
     }
 
     /**
-     * Return the request's metho.
+     * Return the request's method.
      *
      * @return string
      */
