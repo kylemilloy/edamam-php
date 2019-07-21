@@ -4,8 +4,8 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use Edamam\Api\FoodDatabase\Parser;
-use Edamam\Api\FoodDatabase\FoodDatabase;
 use Edamam\Api\FoodDatabase\Nutrients;
+use Edamam\Api\FoodDatabase\FoodDatabase;
 
 class FoodDatabaseTest extends TestCase
 {
@@ -238,8 +238,15 @@ class FoodDatabaseTest extends TestCase
     /** @test */
     public function it_can_fetch_a_json_response_from_the_api()
     {
+        // skip CI testing
+        if (!$this->canAuthenticateWithApi('FOOD_ID', 'FOOD_KEY')) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
         $response = $this->parser->ingredient('beer')->fetch();
-        $json = $this->parser->results();
+        $json = json_encode($this->parser->results());
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertJson($response->getBody());

@@ -47,6 +47,8 @@ abstract class RequestorAbstract
      */
     public function fetch()
     {
+        $this->validate();
+
         return (new \GuzzleHttp\Client())
             ->request(
                 $this->getRequestMethod(),
@@ -66,9 +68,7 @@ abstract class RequestorAbstract
      */
     public function results()
     {
-        $this->validate();
-
-        return $this->fetch()->getBody();
+        return json_decode($this->fetch()->getBody());
     }
 
     /**

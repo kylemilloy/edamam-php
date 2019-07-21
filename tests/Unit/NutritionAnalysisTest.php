@@ -152,19 +152,4 @@ class NutritionAnalysisTest extends TestCase
 
         $this->assertEquals($value, $this->recipe->instructions());
     }
-
-    /** @test */
-    public function it_can_fetch_a_json_response_from_the_api()
-    {
-        $response = $this->recipe
-            ->title('Breakfast of Champions')
-            ->ingredients('beer')
-            ->fetch();
-
-        $json = $this->recipe->results();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertJson($response->getBody());
-        $this->assertJson($json);
-    }
 }
