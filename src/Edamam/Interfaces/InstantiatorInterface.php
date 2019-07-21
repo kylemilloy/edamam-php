@@ -9,5 +9,5 @@ interface InstantiatorInterface
      *
      * @return self
      */
-    public static function instance(): InstantiatorInterface;
+    public static function instance(): self;
 }
