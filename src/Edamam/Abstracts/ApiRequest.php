@@ -161,7 +161,7 @@ abstract class ApiRequest
         return [
             'query' => array_merge(
                 $this->getApiCredentials(),
-                $this->getQueryParameters(),
+                $this->getQueryParameters()
             ),
         ];
     }
