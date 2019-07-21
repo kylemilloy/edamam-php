@@ -37,7 +37,7 @@ The Food class controls access to the Edamam Food API. You can view the document
 | Method             | Description                                                                           |
 | ------------------ | ------------------------------------------------------------------------------------- |
 | ingredient         | Get/set the ingredient, only ingredient OR UPC can be set, not both, but at least one |
-| upc                | Get/set the upc, only ingrdient or UPC can be set, not both, but at least one         |
+| upc                | Get/set the upc, only ingredient or UPC can be set, not both, but at least one        |
 | nutritionType      | Get/set the nutritionType                                                             |
 | enableFoodLogging  | Sets nutrition-type to "logging"                                                      |
 | disableFoodLogging | Sets nutrition-type to null                                                           |
@@ -81,5 +81,5 @@ Food::instance()
 ## Todo
 
 - ~~Add support for Food API~~
-- Add support for Nutrion API
+- Add support for Nutrition API
 - Add support for Recipe API
