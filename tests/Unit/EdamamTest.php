@@ -25,7 +25,8 @@ class EdamamTest extends TestCase
     /** @test */
     public function it_can_set_its_credentials()
     {
-        $this->assertInstanceOf(Edamam::class, Edamam::setApiCredentials(getenv('EDAMAM_ID'), getenv('EDAMAM_KEY')));
+        Edamam::setApiCredentials(getenv('EDAMAM_ID'), getenv('EDAMAM_KEY'));
+        $this->assertEquals(['app_id' => getenv('EDAMAM_ID'), 'app_key' => getenv('EDAMAM_KEY')], Edamam::getApiCredentials());
     }
 
     /** @test */

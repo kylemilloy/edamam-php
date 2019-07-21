@@ -167,7 +167,7 @@ class FoodTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('You must enter either an ingredient or UPC code to search for');
 
-        $this->food->search();
+        $this->food->find();
     }
 
     /** @test */
