@@ -13,15 +13,15 @@ class Food extends ApiRequest
      * @var array
      */
     protected $allowedQueryParameters = [
-        'ingredient',
         'upc',
-        'nutritionType',
-        'healthLabel',
         'calories',
-        'minimumCalories',
-        'maximumCalories',
         'category',
+        'ingredient',
+        'healthLabel',
         'categoryLabel',
+        'nutritionType',
+        'maximumCalories',
+        'minimumCalories',
     ];
 
     /**
@@ -102,14 +102,14 @@ class Food extends ApiRequest
     public function __construct(?string $appId = null, ?string $appKey = null)
     {
         if (2 === func_num_args()) {
-            Edamam::setApiCredentials($appId, $appKey);
+            self::setApiCredentials($appId, $appKey);
         }
     }
 
     /**
      * Return the Food instance.
      *
-     * @return \Edamam\Food
+     * @return self
      */
     public static function instance(): self
     {
@@ -396,13 +396,13 @@ class Food extends ApiRequest
     public function getQueryParameters(): array
     {
         return $this->filterQueryParameters([
-            'ingr' => $this->ingredient(),
             'upc' => $this->upc(),
-            'nutrition-type' => $this->nutritionType(),
-            'health' => $this->healthLabel(),
+            'ingr' => $this->ingredient(),
             'calories' => $this->calories(),
             'category' => $this->category(),
+            'health' => $this->healthLabel(),
             'categoryLabel' => $this->categoryLabel(),
+            'nutrition-type' => $this->nutritionType(),
         ]);
     }
 }

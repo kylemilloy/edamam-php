@@ -19,7 +19,11 @@
         </whitelist>
     </filter>
     <php>
-        <env name="EDAMAM_ID" value="app_id"/>
-        <env name="EDAMAM_KEY" value="app_key"/>
+        <env name="FOOD_ID" value="food_id"/>
+        <env name="FOOD_KEY" value="food_key"/>
+        <env name="RECIPE_ID" value="recipe_id"/>
+        <env name="RECIPE_KEY" value="recipe_key"/>
+        <env name="NUTRITION_ID" value="nutrition_id"/>
+        <env name="NUTRITION_KEY" value="nutrition_key"/>
     </php>
 </phpunit>

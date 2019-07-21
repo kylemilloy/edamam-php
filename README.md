@@ -14,16 +14,15 @@ Install with composer using `composer require kylemilloy/edamam-php`
 ## Basic usage
 
 ```php
-use Edamam\Edamam;
 use Edamam\Api\Food;
 
 // Set the API credentials
-Edamam::setApiCredentials('app_id', 'app_key');
+Food::setApiCredentials('app_id', 'app_key');
 
 // make a request to the food api
 $json = Food::instance()
     ->ingredient('pizza')
-    ->find();
+    ->results();
 ```
 
 ## Edamam
@@ -75,7 +74,7 @@ Food::instance()
     ->maximumCalories(1000) // ALTERNATIVE syntax, sets the max to 1000
     ->category('generic-foods')
     ->categoryLabel('food')
-    ->find();
+    ->results(); // execute api search
 ```
 
 ## Todo

@@ -20,10 +20,60 @@ abstract class ApiRequest
      */
     protected $allowedQueryParameters = [];
 
+    /**
+     * The Edamam application ID.
+     *
+     * @var string
+     */
+    public static $appId;
+
+    /**
+     * The Edamam application key.
+     *
+     * @var string
+     */
+    public static $appKey;
+
+    /**
+     * Instantiate the instance.
+     *
+     * @param string|null $appId
+     * @param string|null $appKey
+     */
+    public function __construct(?string $appId, ?string $appKey)
+    {
+        $this->setApiCredentials($appId, $appKey);
+    }
+
+    /**
+     * Return the API Credentials.
+     *
+     * @return array
+     */
+    public static function getApiCredentials(): array
+    {
+        return [
+            'app_id' => self::$appId,
+            'app_key' => self::$appKey,
+        ];
+    }
+
+    /**
+     * Set the App Id and App Key.
+     *
+     * @param string $appId
+     * @param string $appKey
+     */
+    public static function setApiCredentials(string $appId, string $appKey)
+    {
+        self::$appId = $appId;
+        self::$appKey = $appKey;
+    }
+
     protected function fetch()
     {
         return (new \GuzzleHttp\Client())
-            ->request('GET', $this->getRequestUrl(), $this->getRequestParameters())
+            ->request($this->getRequestMethod(), $this->getRequestUrl(), $this->getRequestParameters())
             ->getBody();
     }
 
@@ -36,7 +86,7 @@ abstract class ApiRequest
      *
      * @return \Psr\Http\Message\StreamInterface
      */
-    public function find($query = null)
+    public function results($query = null)
     {
         if (1 == func_num_args()) {
             $this->setQueryParameters($query);
@@ -52,6 +102,16 @@ abstract class ApiRequest
      */
     protected function validate()
     {
+    }
+
+    /**
+     * Return the request's metho.
+     *
+     * @return string
+     */
+    protected function getRequestMethod()
+    {
+        return 'GET';
     }
 
     /**
@@ -72,27 +132,6 @@ abstract class ApiRequest
     protected function getRequestPath()
     {
         return '';
-    }
-
-    /**
-     * Return the API Credentials.
-     *
-     * @return array
-     */
-    protected function getApiCredentials(): array
-    {
-        return Edamam::getApiCredentials();
-    }
-
-    /**
-     * Set the App Id and App Key.
-     *
-     * @param string $appId
-     * @param string $appKey
-     */
-    public static function setApiCredentials(string $appId, string $appKey)
-    {
-        Edamam::setApiCredentials($appId, $appKey);
     }
 
     /**
@@ -159,6 +198,7 @@ abstract class ApiRequest
     public function getRequestParameters(): array
     {
         return [
+            'Accept-Encoding' => 'gzip',
             'query' => array_merge(
                 $this->getApiCredentials(),
                 $this->getQueryParameters()

@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use Edamam\Edamam;
 use Tests\TestCase;
 use Edamam\Api\Food;
 
@@ -19,7 +18,7 @@ class FoodTest extends TestCase
     {
         parent::setUp();
 
-        Edamam::setApiCredentials(getenv('EDAMAM_ID'), getenv('EDAMAM_KEY'));
+        Food::setApiCredentials(getenv('FOOD_ID'), getenv('FOOD_KEY'));
 
         $this->food = Food::instance();
     }
@@ -167,7 +166,7 @@ class FoodTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('You must enter either an ingredient or UPC code to search for');
 
-        $this->food->find();
+        $this->food->results();
     }
 
     /** @test */
