@@ -14,7 +14,7 @@ class Nutrients extends FoodDatabaseRequestor implements InstantiatorInterface
      */
     protected $allowedQueryParameters = [
         'yield',
-        'ingredients',
+        'ingredient',
     ];
 
     /**
