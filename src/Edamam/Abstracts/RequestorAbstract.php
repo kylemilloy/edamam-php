@@ -21,19 +21,6 @@ abstract class RequestorAbstract
     protected $allowedQueryParameters = [];
 
     /**
-     * Instantiate the object.
-     *
-     * @param string|null $appId
-     * @param string|null $appKey
-     */
-    public function __construct(?string $appId = null, ?string $appKey = null)
-    {
-        if (2 === func_num_args()) {
-            self::setApiCredentials($appId, $appKey);
-        }
-    }
-
-    /**
      * Return the API Credentials.
      *
      * @return array
