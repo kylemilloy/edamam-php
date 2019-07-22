@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Requests;
+namespace Tests\Requests\NutritionAnalysis;
 
 use Tests\TestCase;
 use Edamam\Requests\NutritionAnalysis\Recipe;
 use Edamam\Requests\NutritionAnalysis\NutritionAnalysis;
 
-class NutritionAnalysisTest extends TestCase
+class RecipeSearchTest extends TestCase
 {
     /**
      * The Food instance.

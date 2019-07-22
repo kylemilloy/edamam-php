@@ -1,13 +1,12 @@
 <?php
 
-namespace Tests\Requests;
+namespace Tests\Requests\FoodDatabase;
 
 use Tests\TestCase;
 use Edamam\Requests\FoodDatabase\Parser;
-use Edamam\Requests\FoodDatabase\Nutrients;
 use Edamam\Requests\FoodDatabase\FoodDatabase;
 
-class FoodDatabaseTest extends TestCase
+class ParserTest extends TestCase
 {
     /**
      * The Parser instance.
@@ -30,13 +29,6 @@ class FoodDatabaseTest extends TestCase
     {
         $this->assertInstanceOf(Parser::class, new Parser());
         $this->assertInstanceOf(Parser::class, Parser::instance());
-    }
-
-    /** @test */
-    public function the_nutrients_can_return_an_instance_of_itself()
-    {
-        $this->assertInstanceOf(Nutrients::class, new Nutrients());
-        $this->assertInstanceOf(Nutrients::class, Nutrients::instance());
     }
 
     /** @test */
