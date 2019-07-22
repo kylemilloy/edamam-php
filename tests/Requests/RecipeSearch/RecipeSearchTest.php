@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Requests\RecipeSearch;
+namespace Tests\Api\RecipeSearch;
 
 use Tests\TestCase;
-use Edamam\Requests\RecipeSearch\Search;
-use Edamam\Requests\RecipeSearch\RecipeSearch;
+use Edamam\Api\RecipeSearch\Search;
+use Edamam\Api\RecipeSearch\RecipeSearch;
 
 class RecipeSearchTest extends TestCase
 {

@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Requests;
+namespace Tests\Api;
 
 use Tests\TestCase;
-use Edamam\Requests\RecipeSearch\Search;
-use Edamam\Requests\RecipeSearch\RecipeSearch;
+use Edamam\Api\RecipeSearch\Search;
+use Edamam\Api\RecipeSearch\RecipeSearch;
 
 class SearchTest extends TestCase
 {
     /**
      * The Recipe instance.
      *
-     * @var \Edamam\Requests\RecipeSearch\Search
+     * @var \Edamam\Api\RecipeSearch\Search
      */
     protected $search;
 

@@ -2,8 +2,6 @@
 
 namespace Edamam\Abstracts;
 
-use Edamam\Edamam;
-
 abstract class AuthenticatorAbstract
 {
     /**

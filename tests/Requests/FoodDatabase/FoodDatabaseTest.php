@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Requests\FoodDatabase;
+namespace Tests\Api\FoodDatabase;
 
 use Tests\TestCase;
-use Edamam\Requests\FoodDatabase\Parser;
-use Edamam\Requests\FoodDatabase\Nutrients;
-use Edamam\Requests\FoodDatabase\FoodDatabase;
+use Edamam\Api\FoodDatabase\Parser;
+use Edamam\Api\FoodDatabase\Nutrients;
+use Edamam\Api\FoodDatabase\FoodDatabase;
 
 class FoodDatabaseTest extends TestCase
 {

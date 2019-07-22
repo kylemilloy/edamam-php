@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Requests\FoodDatabase;
+namespace Tests\Api\FoodDatabase;
 
 use Tests\TestCase;
-use Edamam\Requests\FoodDatabase\Parser;
-use Edamam\Requests\FoodDatabase\FoodDatabase;
+use Edamam\Api\FoodDatabase\Parser;
+use Edamam\Api\FoodDatabase\FoodDatabase;
 
 class ParserTest extends TestCase
 {
     /**
      * The Parser instance.
      *
-     * @var \Edamam\Requests\FoodDatabase\Parser
+     * @var \Edamam\Api\FoodDatabase\Parser
      */
     protected $parser;
 
@@ -49,6 +49,16 @@ class ParserTest extends TestCase
         $this->assertInstanceOf(Parser::class, $this->parser->upc($value = 'test'));
 
         $this->assertEquals($value, $this->parser->upc());
+    }
+
+    /** @test */
+    public function it_can_get_set_a_page()
+    {
+        $this->assertNull($this->parser->page());
+
+        $this->assertInstanceOf(Parser::class, $this->parser->page($value = 2));
+
+        $this->assertEquals($value, $this->parser->page());
     }
 
     /** @test */
@@ -238,10 +248,8 @@ class ParserTest extends TestCase
         }
 
         $response = $this->parser->ingredient('beer')->fetch();
-        $json = json_encode($this->parser->results());
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertJson($response->getBody());
-        $this->assertJson($json);
     }
 }

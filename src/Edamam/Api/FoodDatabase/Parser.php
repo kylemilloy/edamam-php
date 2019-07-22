@@ -1,6 +1,6 @@
 <?php
 
-namespace Edamam\Requests\FoodDatabase;
+namespace Edamam\Api\FoodDatabase;
 
 use Edamam\Interfaces\InstantiatorInterface;
 
@@ -13,6 +13,7 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
      */
     protected $allowedQueryParameters = [
         'upc',
+        'page',
         'calories',
         'category',
         'ingredient',
@@ -36,6 +37,13 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
      * @var string
      */
     protected $upc;
+
+    /**
+     * The page value to search.
+     *
+     * @var int
+     */
+    protected $page;
 
     /**
      * When set to true, turn on the food logging feature.
@@ -95,7 +103,7 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
     /**
      * Return the instance.
      *
-     * @return \Edamam\Interfaces\InstantiatorInterface
+     * @return self
      */
     public static function instance(): InstantiatorInterface
     {
@@ -127,7 +135,7 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
     }
 
     /**
-     * Set the UPC to search.
+     * Get/set the UPC to search.
      *
      * @param string|null $upc
      *
@@ -146,6 +154,24 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
         }
 
         return $this->upc;
+    }
+
+    /**
+     * Get/set the pagination value.
+     *
+     * @param int|null $page
+     *
+     * @return mixed
+     */
+    public function page(?int $page = null)
+    {
+        if (1 === func_num_args()) {
+            $this->page = $page;
+
+            return $this;
+        }
+
+        return $this->page;
     }
 
     /**
@@ -347,9 +373,11 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
      */
     protected function validate()
     {
-        if (!$this->ingredient() && !$this->upc()) {
-            throw new \Exception('You must enter either an ingredient or UPC code to search for');
+        if ($this->ingredient() || $this->upc()) {
+            return;
         }
+
+        throw new \Exception('You must enter either an ingredient or UPC code to search for');
     }
 
     /**
@@ -369,14 +397,15 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
      */
     public function getQueryParameters(): array
     {
-        return $this->filterQueryParameters([
+        return $this->filterParameters(array_merge([
             'upc' => $this->upc(),
+            'page' => $this->page(),
             'ingr' => $this->ingredient(),
             'calories' => $this->calories(),
             'category' => $this->category(),
             'health' => $this->healthLabel(),
             'categoryLabel' => $this->categoryLabel(),
             'nutrition-type' => $this->nutritionType(),
-        ]);
+        ], $this->getApiCredentials()));
     }
 }

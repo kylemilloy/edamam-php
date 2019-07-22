@@ -1,6 +1,6 @@
 <?php
 
-namespace Edamam\Requests\NutritionAnalysis;
+namespace Edamam\Api\NutritionAnalysis;
 
 use Edamam\Interfaces\InstantiatorInterface;
 
@@ -107,9 +107,11 @@ class Food extends NutritionAnalysisRequestor implements InstantiatorInterface
      */
     protected function validate()
     {
-        if (!$this->ingredient()) {
-            throw new \Exception('You must enter an ingredient');
+        if ($this->ingredient()) {
+            return;
         }
+
+        throw new \Exception('You must enter an ingredient');
     }
 
     /**
@@ -139,7 +141,7 @@ class Food extends NutritionAnalysisRequestor implements InstantiatorInterface
      */
     public function getQueryParameters(): array
     {
-        return $this->filterQueryParameters([
+        return $this->filterParameters([
             'ingr' => $this->ingredient(),
             'nutrition-type' => $this->nutritionType(),
         ]);

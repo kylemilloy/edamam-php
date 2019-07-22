@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Requests\NutritionAnalysis;
+namespace Tests\Api\NutritionAnalysis;
 
 use Tests\TestCase;
-use Edamam\Requests\NutritionAnalysis\Recipe;
-use Edamam\Requests\NutritionAnalysis\NutritionAnalysis;
+use Edamam\Api\NutritionAnalysis\Recipe;
+use Edamam\Api\NutritionAnalysis\NutritionAnalysis;
 
 class RecipeSearchTest extends TestCase
 {
     /**
      * The Food instance.
      *
-     * @var \Edamam\Requests\NutritionAnalysis\Recipe
+     * @var \Edamam\Api\NutritionAnalysis\Recipe
      */
     protected $recipe;
 

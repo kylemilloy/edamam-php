@@ -1,7 +1,8 @@
 <?php
 
-namespace Edamam\Requests\FoodDatabase;
+namespace Edamam\Api\FoodDatabase;
 
+use Edamam\Support\Measurement;
 use Edamam\Interfaces\InstantiatorInterface;
 
 class Nutrients extends FoodDatabaseRequestor implements InstantiatorInterface
@@ -54,17 +55,24 @@ class Nutrients extends FoodDatabaseRequestor implements InstantiatorInterface
     /**
      * Return the instance.
      *
-     * @return \Edamam\Interfaces\InstantiatorInterface
+     * @return self
      */
     public static function instance(): InstantiatorInterface
     {
         return new self();
     }
 
+    /**
+     * Get/set the yield.
+     *
+     * @param float|null $yield
+     *
+     * @return mixed
+     */
     public function yield(?float $yield = null)
     {
         if (1 === func_num_args()) {
-            return $this->yield = $yield;
+            $this->yield = $yield;
 
             return $this;
         }
@@ -72,10 +80,17 @@ class Nutrients extends FoodDatabaseRequestor implements InstantiatorInterface
         return $this->yield;
     }
 
+    /**
+     * Get/set the ingredient id.
+     *
+     * @param string|null $id
+     *
+     * @return mixed
+     */
     public function id(?string $id = null)
     {
         if (1 === func_num_args()) {
-            return $this->id = $id;
+            $this->id = $this->ingredient['id'] = $this->ingredient['id'] = $id;
 
             return $this;
         }
@@ -83,10 +98,17 @@ class Nutrients extends FoodDatabaseRequestor implements InstantiatorInterface
         return $this->id;
     }
 
+    /**
+     * Get/set the ingredient quantity.
+     *
+     * @param float|null $quantity
+     *
+     * @return mixed
+     */
     public function quantity(?float $quantity = null)
     {
         if (1 === func_num_args()) {
-            return $this->quantity = $quantity;
+            $this->quantity = $this->ingredient['quantity'] = $quantity;
 
             return $this;
         }
@@ -94,10 +116,17 @@ class Nutrients extends FoodDatabaseRequestor implements InstantiatorInterface
         return $this->quantity;
     }
 
+    /**
+     * Get/set the ingredient measurement.
+     *
+     * @param string|null $measurement
+     *
+     * @return mixed
+     */
     public function measurement(?string $measurement = null)
     {
         if (1 === func_num_args()) {
-            return $this->measurement = $measurement;
+            $this->measurement = $this->ingredient['measurement'] = $measurement;
 
             return $this;
         }
@@ -105,30 +134,32 @@ class Nutrients extends FoodDatabaseRequestor implements InstantiatorInterface
         return $this->measurement;
     }
 
+    /**
+     * Get/set the ingredient.
+     *
+     * @param array|null $ingredient
+     *
+     * @return mixed
+     */
     public function ingredient(?array $ingredient = null)
     {
         if (1 === func_num_args()) {
-            return $this->setIngredient($ingredient);
+            if (isset($ingredient['id'])) {
+                $this->id($ingredient['id']);
+            }
+
+            if (isset($ingredient['quantity'])) {
+                $this->quantity($ingredient['quantity']);
+            }
+
+            if (isset($ingredient['measurement'])) {
+                $this->measurement($ingredient['measurement']);
+            }
+
+            return $this;
         }
 
         return $this->ingredient;
-    }
-
-    protected function setIngredient(array $ingredient)
-    {
-        if (isset($ingredient['id'])) {
-            $this->id($ingredient['id']);
-        }
-
-        if (isset($ingredient['quantity'])) {
-            $this->quantity($ingredient['quantity']);
-        }
-
-        if (isset($ingredient['measurement'])) {
-            $this->measurement($ingredient['measurement']);
-        }
-
-        return $this;
     }
 
     /**
@@ -138,9 +169,21 @@ class Nutrients extends FoodDatabaseRequestor implements InstantiatorInterface
      */
     protected function validate()
     {
-        if (!$this->id() && !$this->quantity() && !$this->measurement()) {
-            throw new \Exception('You must enter a food ID, quantity and measurement URI.');
+        if ($this->id() && $this->quantity() && $this->measurement()) {
+            return;
         }
+
+        throw new \Exception('You must enter a food ID, quantity and measurement URI.');
+    }
+
+    /**
+     * Return the request's method.
+     *
+     * @return string
+     */
+    protected function getRequestMethod()
+    {
+        return 'POST';
     }
 
     /**
@@ -153,20 +196,15 @@ class Nutrients extends FoodDatabaseRequestor implements InstantiatorInterface
         return '/api/food-database/nutrients';
     }
 
-    /**
-     * Get the APIs search terms.
-     *
-     * @return array
-     */
-    public function getQueryParameters(): array
+    public function getBodyParameters(): array
     {
-        return $this->filterQueryParameters([
+        return $this->filterParameters([
             'yield' => $this->yield(),
-            'ingredients' => [
+            'ingredients' => [[
                 'foodId' => $this->id(),
                 'quantity' => $this->quantity(),
                 'measureURI' => $this->measurement(),
-            ],
+            ]],
         ]);
     }
 }

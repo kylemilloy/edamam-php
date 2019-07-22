@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Requests\NutritionAnalysis;
+namespace Tests\Api\NutritionAnalysis;
 
 use Tests\TestCase;
-use Edamam\Requests\NutritionAnalysis\Recipe;
-use Edamam\Requests\NutritionAnalysis\NutritionAnalysis;
-use Edamam\Requests\NutritionAnalysis\Food;
+use Edamam\Api\NutritionAnalysis\Recipe;
+use Edamam\Api\NutritionAnalysis\NutritionAnalysis;
+use Edamam\Api\NutritionAnalysis\Food;
 
 class NutritionAnalysisTest extends TestCase
 {

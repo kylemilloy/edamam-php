@@ -1,6 +1,6 @@
 <?php
 
-namespace Edamam\Requests\RecipeSearch;
+namespace Edamam\Api\RecipeSearch;
 
 use Edamam\Interfaces\InstantiatorInterface;
 
@@ -513,9 +513,11 @@ class Search extends RecipeSearchRequestor implements InstantiatorInterface
      */
     protected function validate()
     {
-        if (!$this->query() || !$this->recipe()) {
-            throw new \Exception('You must enter a query or a recipe title');
+        if ($this->query() || $this->recipe()) {
+            return;
         }
+
+        throw new \Exception('You must enter a query or a recipe title');
     }
 
     /**
@@ -535,7 +537,7 @@ class Search extends RecipeSearchRequestor implements InstantiatorInterface
      */
     public function getQueryParameters(): array
     {
-        return $this->filterQueryParameters([
+        return $this->filterParameters([
             'to' => $this->to(),
             'r' => $this->name(),
             'q' => $this->query(),

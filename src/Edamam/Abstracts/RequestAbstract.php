@@ -2,11 +2,10 @@
 
 namespace Edamam\Abstracts;
 
-use Edamam\Edamam;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 
-abstract class RequestorAbstract
+abstract class RequestAbstract
 {
     /**
      * The API base URL.
@@ -30,6 +29,11 @@ abstract class RequestorAbstract
     abstract public static function getApiCredentials(): array;
 
     /**
+     * Customize to perform validation before the results are fetched.
+     */
+    abstract protected function validate();
+
+    /**
      * Perform the API request.
      *
      * @throws \Exception
@@ -49,21 +53,26 @@ abstract class RequestorAbstract
     }
 
     /**
-     * Send the API request.
-     *
-     * @param mixed $query
+     * Fetch the decoded json.
      *
      * @return mixed
      */
     public function results()
     {
-        return json_decode($this->fetch()->getBody());
+        return json_decode($this->getBody());
     }
 
     /**
-     * Customize to perform validation before the results are fetched.
+     * Fetch the raw response body.
+     *
+     * @param mixed $query
+     *
+     * @return mixed
      */
-    abstract protected function validate();
+    public function getBody()
+    {
+        return $this->fetch()->getBody();
+    }
 
     /**
      * Return the request's method.
@@ -96,21 +105,35 @@ abstract class RequestorAbstract
     }
 
     /**
+     * Return request headers.
+     *
+     * @return array
+     */
+    public function getHeaderParameters(): array
+    {
+        return [
+            'Accept-Encoding' => 'gzip',
+        ];
+    }
+
+    /**
      * Get the APIs search terms.
      *
      * @return array
      */
     public function getQueryParameters(): array
     {
-        $parameters = [];
+        return $this->getApiCredentials();
+    }
 
-        foreach ($this->allowedQueryParameters as $parameter) {
-            if (method_exists($this, $parameter)) {
-                $parameters[$parameter] = $this->{$parameter}();
-            }
-        }
-
-        return $this->filterQueryParameters($parameters);
+    /**
+     * Get the json body parameters to send on the request.
+     *
+     * @return array
+     */
+    public function getBodyParameters(): array
+    {
+        return [];
     }
 
     /**
@@ -122,10 +145,6 @@ abstract class RequestorAbstract
      */
     public function setQueryParameters(array $parameters = null): self
     {
-        if (is_string($parameters)) {
-            $this->ingredient($parameters);
-        }
-
         if (is_array($parameters)) {
             foreach ($parameters as $method => $value) {
                 if (in_array($method, $this->allowedQueryParameters)) {
@@ -144,7 +163,7 @@ abstract class RequestorAbstract
      *
      * @return array
      */
-    public function filterQueryParameters(array $parameters): array
+    public function filterParameters(array $parameters): array
     {
         return array_filter($parameters, function ($value) {
             return null !== $value;
@@ -159,11 +178,9 @@ abstract class RequestorAbstract
     public function getRequestParameters(): array
     {
         return [
-            'Accept-Encoding' => 'gzip',
-            'query' => array_merge(
-                $this->getApiCredentials(),
-                $this->getQueryParameters()
-            ),
+            'json' => $this->getBodyParameters(),
+            'query' => $this->getQueryParameters(),
+            'headers' => $this->getHeaderParameters(),
         ];
     }
 }
