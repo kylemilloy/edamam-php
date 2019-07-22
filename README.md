@@ -10,10 +10,3 @@ A PHP library for interfacing with the [Edamam API](https://developer.edamam.com
 ## Installation
 
 Install with composer using `composer require kylemilloy/edamam-php`
-
-## Todo
-
-- Add full support for Food Database API
-- Add full support for Recipe Search API
-- Add full support for Nutrition Analysis API
-- Add documentation to each API
