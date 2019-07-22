@@ -1,6 +1,6 @@
 <?php
 
-namespace Edamam\Api\NutritionAnalysis;
+namespace Edamam\Requests\NutritionAnalysis;
 
 use Edamam\Abstracts\AuthenticatorAbstract;
 
@@ -9,7 +9,7 @@ class NutritionAnalysis extends AuthenticatorAbstract
     /**
      * Get the Recipe instance.
      *
-     * @return \Edamam\Api\NutritionAnalysis\Recipe
+     * @return \Edamam\Requests\NutritionAnalysis\Recipe
      */
     public static function recipe(): Recipe
     {
@@ -19,7 +19,7 @@ class NutritionAnalysis extends AuthenticatorAbstract
     /**
      * Get the Food instance.
      *
-     * @return \Edamam\Api\NutritionAnalysis\Food
+     * @return \Edamam\Requests\NutritionAnalysis\Food
      */
     public static function food(): Food
     {

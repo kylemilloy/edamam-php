@@ -3,6 +3,8 @@
 namespace Edamam\Abstracts;
 
 use Edamam\Edamam;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 
 abstract class RequestorAbstract
 {
@@ -30,13 +32,15 @@ abstract class RequestorAbstract
     /**
      * Perform the API request.
      *
+     * @throws \Exception
+     *
      * @return \GuzzleHttp\Psr7\Response
      */
-    public function fetch()
+    public function fetch(): Response
     {
         $this->validate();
 
-        return (new \GuzzleHttp\Client())
+        return (new Client())
             ->request(
                 $this->getRequestMethod(),
                 $this->getRequestUrl(),
@@ -49,9 +53,7 @@ abstract class RequestorAbstract
      *
      * @param mixed $query
      *
-     * @throws \Exception
-     *
-     * @return \Psr\Http\Message\StreamInterface
+     * @return mixed
      */
     public function results()
     {
@@ -59,11 +61,9 @@ abstract class RequestorAbstract
     }
 
     /**
-     * Validate the search query.
+     * Customize to perform validation before the results are fetched.
      */
-    protected function validate()
-    {
-    }
+    abstract protected function validate();
 
     /**
      * Return the request's method.

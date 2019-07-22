@@ -1,6 +1,6 @@
 <?php
 
-namespace Edamam\Api\FoodDatabase;
+namespace Edamam\Requests\FoodDatabase;
 
 use Edamam\Interfaces\InstantiatorInterface;
 

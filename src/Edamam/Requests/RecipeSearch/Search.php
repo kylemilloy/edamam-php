@@ -1,6 +1,6 @@
 <?php
 
-namespace Edamam\Api\RecipeSearch;
+namespace Edamam\Requests\RecipeSearch;
 
 use Edamam\Interfaces\InstantiatorInterface;
 

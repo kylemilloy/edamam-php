@@ -1,10 +1,10 @@
 <?php
 
-namespace Edamam\Api\FoodDatabase;
+namespace Edamam\Requests\FoodDatabase;
 
 use Edamam\Abstracts\RequestorAbstract;
 
-class FoodDatabaseRequestor extends RequestorAbstract
+abstract class FoodDatabaseRequestor extends RequestorAbstract
 {
     public static function getApiCredentials(): array
     {

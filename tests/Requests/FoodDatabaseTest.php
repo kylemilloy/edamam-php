@@ -1,18 +1,18 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Requests;
 
 use Tests\TestCase;
-use Edamam\Api\FoodDatabase\Parser;
-use Edamam\Api\FoodDatabase\Nutrients;
-use Edamam\Api\FoodDatabase\FoodDatabase;
+use Edamam\Requests\FoodDatabase\Parser;
+use Edamam\Requests\FoodDatabase\Nutrients;
+use Edamam\Requests\FoodDatabase\FoodDatabase;
 
 class FoodDatabaseTest extends TestCase
 {
     /**
      * The Parser instance.
      *
-     * @var \Edamam\Api\FoodDatabase\Parser
+     * @var \Edamam\Requests\FoodDatabase\Parser
      */
     protected $parser;
 

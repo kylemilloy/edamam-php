@@ -145,18 +145,11 @@ class Nutrient
     const VITAMIN_B12 = 'VITB12';
 
     /**
-     * Folate, food (Vitamin B9) measured in mcg.
+     * Folate (Vitamin B9) measured in mcg.
      *
      * @return string
      */
-    const VITAMIN_B9 = 'FOLDFD';
-
-    /**
-     * Folate, equivalent (Vitamin B9) measured in mcg.
-     *
-     * @return string
-     */
-    const VITAMIN_B9_EQUIVALENT = 'FOLDFE';
+    const VITAMIN_B9 = 'FOLDFE';
 
     /**
      * Potassium measured in mg.
@@ -213,4 +206,9 @@ class Nutrient
      * @return string
      */
     const VITAMIN_B1 = 'THIA';
+
+    /**
+     * Zinc measured in mg.
+     */
+    const ZINC = 'ZN';
 }

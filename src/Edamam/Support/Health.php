@@ -103,7 +103,7 @@ class Health
      *
      * @return string
      */
-    const OIL_FREE = 'No-oil-added';
+    const OIL_FREE = 'no-oil-added';
 
     /**
      * No simple sugars – glucose, dextrose, galactose, fructose, sucrose,

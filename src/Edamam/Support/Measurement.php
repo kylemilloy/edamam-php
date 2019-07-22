@@ -12,7 +12,7 @@ class Measurement
     const GRAM = 'http://www.edamam.com/ontologies/edamam.owl#Measure_gram';
 
     /**
-     * Ontology reference for a kilo.
+     * Ontology reference for a kilogramme.
      *
      * @return string
      */

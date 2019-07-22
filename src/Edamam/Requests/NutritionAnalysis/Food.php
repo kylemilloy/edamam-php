@@ -1,6 +1,6 @@
 <?php
 
-namespace Edamam\Api\NutritionAnalysis;
+namespace Edamam\Requests\NutritionAnalysis;
 
 use Edamam\Interfaces\InstantiatorInterface;
 
