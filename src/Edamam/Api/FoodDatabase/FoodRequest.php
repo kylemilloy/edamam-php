@@ -2,14 +2,21 @@
 
 namespace Edamam\Api\FoodDatabase;
 
-use Edamam\Traits\Searchable;
+use Edamam\Traits\Findable;
 use Edamam\Traits\Instantiable;
 use Edamam\Abstracts\FoodDatabaseRequest;
 
 class FoodRequest extends FoodDatabaseRequest
 {
-    use Searchable;
+    use Findable;
     use Instantiable;
+
+    /**
+     * The name of the response class.
+     *
+     * @var string
+     */
+    protected $responseClass = \Edamam\Api\FoodDatabase\FoodResponse::class;
 
     /**
      * The allowed parameters to mass-assign.

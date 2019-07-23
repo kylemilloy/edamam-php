@@ -3,7 +3,7 @@
 namespace Edamam\Abstracts;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
+use Edamam\Api\Response;
 use Edamam\Interfaces\RequestInterface;
 
 abstract class RequestAbstract implements RequestInterface
@@ -16,6 +16,13 @@ abstract class RequestAbstract implements RequestInterface
     const BASE_URL = 'https://api.edamam.com';
 
     /**
+     * The name of the response class.
+     *
+     * @var string
+     */
+    protected $responseClass = \Edamam\Api\Response::class;
+
+    /**
      * The allowed parameters to mass-assign.
      *
      * @var array
@@ -25,7 +32,7 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * The API response instance.
      *
-     * @var \GuzzleHttp\Psr7\Response
+     * @var \Edamam\Api\Response
      */
     protected $response;
 
@@ -56,38 +63,34 @@ abstract class RequestAbstract implements RequestInterface
      *
      * @throws \Exception
      *
-     * @return \GuzzleHttp\Psr7\Response
+     * @return Edamam\Api\Response
      */
-    public function fetch(): Response
+    public function fetch(): RequestInterface
     {
         $this->validate();
 
-        return $this->response() ?:
-            $this->response = (new Client())->request(
-                $this->getRequestMethod(),
-                $this->getRequestUrl(),
-                $this->getRequestParameters()
-            );
+        $responseClass = $this->responseClass;
+        $this->response = new $responseClass((new Client())->request(
+            $this->getRequestMethod(),
+            $this->getRequestUrl(),
+            $this->getRequestParameters()
+        ));
+
+        return $this;
     }
 
     /**
      * Get the raw response.
      *
-     * @return \GuzzleHttp\Psr7\Response|null
+     * @return \Edamam\Api\Response|null
      */
     public function response(): ?Response
     {
-        return $this->response;
-    }
+        if (is_null($this->response)) {
+            $this->fetch();
+        }
 
-    /**
-     * Fetch the decoded json.
-     *
-     * @return mixed
-     */
-    public function results()
-    {
-        return json_decode($this->fetch()->getBody());
+        return $this->response;
     }
 
     /**
@@ -146,7 +149,9 @@ abstract class RequestAbstract implements RequestInterface
      */
     public function getQueryParameters(): array
     {
-        return $this->getApiCredentials();
+        return $this->filterParameters(
+            $this->getAuthenticationParameters()
+        );
     }
 
     /**

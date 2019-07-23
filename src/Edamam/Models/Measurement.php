@@ -2,9 +2,7 @@
 
 namespace Edamam\Models;
 
-use Edamam\Abstracts\ModelAbstract;
-
-class Measurement extends ModelAbstract
+class Measurement
 {
     /**
      * Ontology reference for a gramme.

@@ -212,7 +212,7 @@ class FoodRequestTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('You must enter either an ingredient or UPC code to search for');
 
-        $this->request->results();
+        $this->request->fetch();
     }
 
     /** @test */
@@ -265,7 +265,8 @@ class FoodRequestTest extends TestCase
     public function it_can_execute_a_quick_search_with_shorthand()
     {
         $results = FoodRequest::find(['ingredient' => 'beer']);
-        $this->assertNotNull('beer' === $results->text);
+
+        $this->assertNotNull($results);
     }
 
     /** @test */
@@ -285,30 +286,16 @@ class FoodRequestTest extends TestCase
     /** @test */
     public function it_can_fetch_a_json_response_from_the_api()
     {
-        $response = $this->request->ingredient('beer')->fetch();
+        $this->request->ingredient('beer')->fetch();
 
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertJson((string) $response->getBody());
+        $this->assertJson((string) $this->request->response()->raw->getBody());
     }
 
     /** @test */
     public function the_food_request_caches_its_response()
     {
-        $this->assertNull($this->request->response());
-
-        $results = $this->request->ingredient('pizza')->results();
+        $results = $this->request->ingredient('pizza')->fetch();
 
         $this->assertNotNull($response = $this->request->response());
-        $this->assertSame($this->request->response(), $this->request->fetch());
-
-        $this->assertEquals(
-            ($results = json_decode($response->getBody()))->text,
-            $this->request->ingredient('beer')->results()->text
-        );
-
-        $this->assertNotEquals(
-            $results->text,
-            $this->request->fresh()->results()->text
-        );
     }
 }

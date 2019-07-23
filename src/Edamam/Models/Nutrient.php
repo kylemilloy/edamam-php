@@ -2,9 +2,7 @@
 
 namespace Edamam\Models;
 
-use Edamam\Abstracts\ModelAbstract;
-
-class Nutrient extends ModelAbstract
+class Nutrient
 {
     /**
      * Calcium in mg.

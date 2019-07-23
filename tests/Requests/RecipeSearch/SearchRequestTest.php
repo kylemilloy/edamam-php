@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Edamam\Api\RecipeSearch\Search;
 use Edamam\Api\RecipeSearch\RecipeSearch;
 
-class SearchTest extends TestCase
+class SearchRequestTest extends TestCase
 {
     /**
      * The Recipe instance.

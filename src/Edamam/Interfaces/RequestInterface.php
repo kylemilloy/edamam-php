@@ -2,7 +2,7 @@
 
 namespace Edamam\Interfaces;
 
-use GuzzleHttp\Psr7\Response;
+use Edamam\Api\Response;
 
 interface RequestInterface
 {
@@ -11,23 +11,16 @@ interface RequestInterface
      *
      * @throws \Exception
      *
-     * @return \GuzzleHttp\Psr7\Response
+     * @return self
      */
-    public function fetch(): Response;
+    public function fetch(): self;
 
     /**
      * Get the raw response.
      *
-     * @return \GuzzleHttp\Psr7\Response|null
+     * @return \Edamam\Api\Response|null
      */
     public function response(): ?Response;
-
-    /**
-     * Fetch the decoded json.
-     *
-     * @return mixed
-     */
-    public function results();
 
     /**
      * Customize to perform validation before the results are fetched.

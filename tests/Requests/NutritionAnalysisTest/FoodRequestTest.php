@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Edamam\Api\NutritionAnalysis\Food;
 use Edamam\Api\NutritionAnalysis\NutritionAnalysis;
 
-class FoodTest extends TestCase
+class FoodRequestTest extends TestCase
 {
     /**
      * The Food instance.

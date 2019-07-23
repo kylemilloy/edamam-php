@@ -2,13 +2,13 @@
 
 namespace Edamam\Api\FoodDatabase;
 
-use Edamam\Traits\Searchable;
+use Edamam\Traits\Findable;
 use Edamam\Traits\Instantiable;
 use Edamam\Abstracts\FoodDatabaseRequest;
 
 class NutrientRequest extends FoodDatabaseRequest
 {
-    use Searchable;
+    use Findable;
     use Instantiable;
 
     /**

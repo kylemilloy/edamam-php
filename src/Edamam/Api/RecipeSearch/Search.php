@@ -2,13 +2,13 @@
 
 namespace Edamam\Api\RecipeSearch;
 
-use Edamam\Traits\Searchable;
+use Edamam\Traits\Findable;
 use Edamam\Traits\Instantiable;
 use Edamam\Abstracts\RecipeSearchRequest;
 
 class Search extends RecipeSearchRequest
 {
-    use Searchable;
+    use Findable;
     use Instantiable;
 
     /**

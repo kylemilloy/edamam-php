@@ -2,7 +2,7 @@
 
 namespace Edamam\Traits;
 
-trait Searchable
+trait Findable
 {
     /**
      * Quickly execute a request to the database.
@@ -13,6 +13,9 @@ trait Searchable
      */
     public static function find(array $parameters)
     {
-        return (new self($parameters))->results();
+        return (new self($parameters))
+            ->fetch()
+            ->response()
+            ->results();
     }
 }

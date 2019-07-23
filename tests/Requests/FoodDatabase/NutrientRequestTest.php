@@ -92,7 +92,7 @@ class NutrientRequestTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('You must enter a food ID, quantity and measurement URI.');
 
-        $this->request->results();
+        $this->request->fetch();
     }
 
     /** @test */
@@ -104,8 +104,6 @@ class NutrientRequestTest extends TestCase
             'measurement' => Measurement::GRAM,
         ]);
 
-        $response = $this->request->fetch();
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertJson((string) $response->getBody());
+        $this->assertNotNull($response = $this->request->response());
     }
 }

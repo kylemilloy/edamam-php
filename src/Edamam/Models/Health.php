@@ -2,9 +2,7 @@
 
 namespace Edamam\Models;
 
-use Edamam\Abstracts\ModelAbstract;
-
-class Health extends ModelAbstract
+class Health
 {
     /**
      * No alcohol used or contained.
