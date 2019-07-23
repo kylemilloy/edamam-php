@@ -83,7 +83,7 @@ interface RequestInterface
      *
      * @param array $parameters
      *
-     * @return self
+     * @return \Edamam\Interfaces\RequestInterface
      */
     public function setQueryParameters(array $parameters): RequestInterface;
 
