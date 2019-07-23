@@ -11,7 +11,7 @@ interface RequestInterface
      *
      * @return self
      */
-    public function fresh(): RequestInterface;
+    public function fresh(): self;
 
     /**
      * Perform the API request.
@@ -83,9 +83,9 @@ interface RequestInterface
      *
      * @param array $parameters
      *
-     * @return \Edamam\Interfaces\RequestInterface
+     * @return self
      */
-    public function setQueryParameters(array $parameters): RequestInterface;
+    public function setQueryParameters(array $parameters): self;
 
     /**
      * Get the json body parameters to send on the request.
