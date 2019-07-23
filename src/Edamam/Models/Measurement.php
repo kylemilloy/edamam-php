@@ -1,8 +1,10 @@
 <?php
 
-namespace Edamam\Support;
+namespace Edamam\Models;
 
-class Measurement
+use Edamam\Abstracts\ModelAbstract;
+
+class Measurement extends ModelAbstract
 {
     /**
      * Ontology reference for a gramme.

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Support;
+namespace Tests\Unit;
 
 use Tests\TestCase;
-use Edamam\Support\Nutrient;
+use Edamam\Models\Nutrient;
 
 class NutrientTest extends TestCase
 {

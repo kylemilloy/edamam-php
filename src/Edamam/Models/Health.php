@@ -1,8 +1,10 @@
 <?php
 
-namespace Edamam\Support;
+namespace Edamam\Models;
 
-class Health
+use Edamam\Abstracts\ModelAbstract;
+
+class Health extends ModelAbstract
 {
     /**
      * No alcohol used or contained.

@@ -2,27 +2,209 @@
 
 namespace Edamam\Api\FoodDatabase;
 
-use Edamam\Abstracts\AuthenticatorAbstract;
+use Edamam\Interfaces\Instantiable;
+use Edamam\Abstracts\FoodDatabaseRequest;
 
-class FoodDatabase extends AuthenticatorAbstract
+class NutrientRequest extends FoodDatabaseRequest implements Instantiable
 {
     /**
-     * Get the FoodRequest instance.
+     * The allowed parameters to mass-assign.
      *
-     * @return \Edamam\Api\FoodDatabase\FoodRequest
+     * @var array
      */
-    public static function parser(): FoodRequest
+    protected $allowedQueryParameters = [
+        'yield',
+        'ingredient',
+    ];
+
+    /**
+     * Number of servings.
+     *
+     * @var float
+     */
+    protected $yield;
+
+    /**
+     * The ingredient to search nutritents for.
+     *
+     * @var array
+     */
+    protected $ingredient = [];
+
+    /**
+     * The food ID to look up.
+     *
+     * @var string
+     */
+    protected $id;
+
+    /**
+     * The Measurement URI to use.
+     *
+     * @var string
+     */
+    protected $measurement;
+
+    /**
+     * The quantity to use.
+     *
+     * @return float
+     */
+    protected $quantity;
+
+    /**
+     * Return the instance.
+     *
+     * @return self
+     */
+    public static function instance(): Instantiable
     {
-        return FoodRequest::instance();
+        return new self();
     }
 
     /**
-     * Get the Nutritients instance.
+     * Get/set the yield.
      *
-     * @return \Edamam\Api\FoodDatabase\NutrientRequest
+     * @param float|null $yield
+     *
+     * @return mixed
      */
-    public static function nutrients(): NutrientRequest
+    public function yield(?float $yield = null)
     {
-        return NutrientRequest::instance();
+        if (1 === func_num_args()) {
+            $this->yield = $yield;
+
+            return $this;
+        }
+
+        return $this->yield;
+    }
+
+    /**
+     * Get/set the ingredient id.
+     *
+     * @param string|null $id
+     *
+     * @return mixed
+     */
+    public function id(?string $id = null)
+    {
+        if (1 === func_num_args()) {
+            $this->id = $this->ingredient['id'] = $this->ingredient['id'] = $id;
+
+            return $this;
+        }
+
+        return $this->id;
+    }
+
+    /**
+     * Get/set the ingredient quantity.
+     *
+     * @param float|null $quantity
+     *
+     * @return mixed
+     */
+    public function quantity(?float $quantity = null)
+    {
+        if (1 === func_num_args()) {
+            $this->quantity = $this->ingredient['quantity'] = $quantity;
+
+            return $this;
+        }
+
+        return $this->quantity;
+    }
+
+    /**
+     * Get/set the ingredient measurement.
+     *
+     * @param string|null $measurement
+     *
+     * @return mixed
+     */
+    public function measurement(?string $measurement = null)
+    {
+        if (1 === func_num_args()) {
+            $this->measurement = $this->ingredient['measurement'] = $measurement;
+
+            return $this;
+        }
+
+        return $this->measurement;
+    }
+
+    /**
+     * Get/set the ingredient.
+     *
+     * @param array|null $ingredient
+     *
+     * @return mixed
+     */
+    public function ingredient(?array $ingredient = null)
+    {
+        if (1 === func_num_args()) {
+            if (isset($ingredient['id'])) {
+                $this->id($ingredient['id']);
+            }
+
+            if (isset($ingredient['quantity'])) {
+                $this->quantity($ingredient['quantity']);
+            }
+
+            if (isset($ingredient['measurement'])) {
+                $this->measurement($ingredient['measurement']);
+            }
+
+            return $this;
+        }
+
+        return $this->ingredient;
+    }
+
+    /**
+     * Validate the search query.
+     *
+     * @throws \Exception
+     */
+    protected function validate()
+    {
+        if ($this->id() && $this->quantity() && $this->measurement()) {
+            return;
+        }
+
+        throw new \Exception('You must enter a food ID, quantity and measurement URI.');
+    }
+
+    /**
+     * Return the request's method.
+     *
+     * @return string
+     */
+    protected function getRequestMethod()
+    {
+        return 'POST';
+    }
+
+    /**
+     * The API URI to request to.
+     *
+     * @return string
+     */
+    protected function getRequestPath()
+    {
+        return '/api/food-database/nutrients';
+    }
+
+    public function getBodyParameters(): array
+    {
+        return $this->filterParameters([
+            'yield' => $this->yield(),
+            'ingredients' => [[
+                'foodId' => $this->id(),
+                'quantity' => $this->quantity(),
+                'measureURI' => $this->measurement(),
+            ]],
+        ]);
     }
 }

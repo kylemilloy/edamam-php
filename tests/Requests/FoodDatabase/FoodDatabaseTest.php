@@ -12,7 +12,7 @@ class FoodDatabaseTest extends TestCase
     /** @test */
     public function it_holds_reference_to_its_two_request_types()
     {
-        $this->assertInstanceOf(FoodRequest::class, FoodDatabase::parser());
+        $this->assertInstanceOf(FoodRequest::class, FoodDatabase::search());
         $this->assertInstanceOf(NutrientRequest::class, FoodDatabase::nutrients());
     }
 

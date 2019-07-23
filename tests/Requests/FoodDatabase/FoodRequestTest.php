@@ -13,7 +13,7 @@ class FoodRequestTest extends TestCase
      *
      * @var \Edamam\Api\FoodDatabase\FoodRequest
      */
-    protected $parser;
+    protected $request;
 
     public function setUp()
     {
@@ -25,7 +25,7 @@ class FoodRequestTest extends TestCase
     }
 
     /** @test */
-    public function the_parser_can_return_an_instance_of_itself()
+    public function the_food_request_can_return_an_instance_of_itself()
     {
         $this->assertInstanceOf(FoodRequest::class, new FoodRequest());
         $this->assertInstanceOf(FoodRequest::class, FoodRequest::instance());
@@ -292,7 +292,7 @@ class FoodRequestTest extends TestCase
     }
 
     /** @test */
-    public function the_parser_caches_its_response()
+    public function the_food_request_caches_its_response()
     {
         $this->assertNull($this->request->response());
 

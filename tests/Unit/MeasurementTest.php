@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Support;
+namespace Tests\Unit;
 
 use Tests\TestCase;
-use Edamam\Support\Measurement;
+use Edamam\Models\Measurement;
 
 class MeasurementTest extends TestCase
 {

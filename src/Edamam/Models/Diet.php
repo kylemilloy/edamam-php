@@ -1,8 +1,10 @@
 <?php
 
-namespace Edamam\Support;
+namespace Edamam\Models;
 
-class Diet
+use Edamam\Abstracts\ModelAbstract;
+
+class Diet extends ModelAbstract
 {
     /**
      *  Protein/Fat/Carb values in 15/35/50 ratio.

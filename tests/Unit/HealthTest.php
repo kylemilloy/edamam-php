@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Support;
+namespace Tests\Unit;
 
 use Tests\TestCase;
-use Edamam\Support\Health;
+use Edamam\Models\Health;
 
 class HealthTest extends TestCase
 {

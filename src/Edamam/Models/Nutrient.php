@@ -1,8 +1,10 @@
 <?php
 
-namespace Edamam\Support;
+namespace Edamam\Models;
 
-class Nutrient
+use Edamam\Abstracts\ModelAbstract;
+
+class Nutrient extends ModelAbstract
 {
     /**
      * Calcium in mg.
