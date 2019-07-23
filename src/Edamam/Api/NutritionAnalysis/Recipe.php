@@ -384,7 +384,7 @@ class Recipe extends NutritionAnalysisRequest
      *
      * @throws \Exception
      */
-    protected function validate()
+    public function validate()
     {
         if ($this->ingredients() && $this->title()) {
             return;

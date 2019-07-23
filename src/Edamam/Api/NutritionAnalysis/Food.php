@@ -100,7 +100,7 @@ class Food extends NutritionAnalysisRequest
      *
      * @throws \Exception
      */
-    protected function validate()
+    public function validate()
     {
         if ($this->ingredient()) {
             return;

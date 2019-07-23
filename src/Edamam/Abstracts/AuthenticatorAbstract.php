@@ -2,7 +2,9 @@
 
 namespace Edamam\Abstracts;
 
-abstract class AuthenticatorAbstract
+use Edamam\Interfaces\AuthenticatorInterface;
+
+abstract class AuthenticatorAbstract implements AuthenticatorInterface
 {
     /**
      * The Edamam application ID.

@@ -37,7 +37,7 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * Customize to perform validation before the results are fetched.
      */
-    abstract protected function validate();
+    abstract public function validate();
 
     /**
      * Invalidates response cache.

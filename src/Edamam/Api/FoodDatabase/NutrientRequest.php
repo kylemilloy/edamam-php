@@ -161,7 +161,7 @@ class NutrientRequest extends FoodDatabaseRequest
      *
      * @throws \Exception
      */
-    protected function validate()
+    public function validate()
     {
         if ($this->id() && $this->quantity() && $this->measurement()) {
             return;

@@ -506,7 +506,7 @@ class Search extends RecipeSearchRequest
      *
      * @throws \Exception
      */
-    protected function validate()
+    public function validate()
     {
         if ($this->query() || $this->recipe()) {
             return;

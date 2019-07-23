@@ -366,7 +366,7 @@ class FoodRequest extends FoodDatabaseRequest
      *
      * @throws \Exception
      */
-    protected function validate()
+    public function validate()
     {
         if ($this->ingredient() || $this->upc()) {
             return;

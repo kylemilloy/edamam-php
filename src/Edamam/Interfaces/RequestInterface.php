@@ -7,13 +7,6 @@ use GuzzleHttp\Psr7\Response;
 interface RequestInterface
 {
     /**
-     * Invalidates response cache.
-     *
-     * @return self
-     */
-    public function fresh(): self;
-
-    /**
      * Perform the API request.
      *
      * @throws \Exception
@@ -35,6 +28,18 @@ interface RequestInterface
      * @return mixed
      */
     public function results();
+
+    /**
+     * Customize to perform validation before the results are fetched.
+     */
+    public function validate();
+
+    /**
+     * Invalidates response cache.
+     *
+     * @return self
+     */
+    public function fresh(): self;
 
     /**
      * Return the request's method.
