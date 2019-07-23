@@ -2,10 +2,14 @@
 
 namespace Edamam\Api\FoodDatabase;
 
-use Edamam\Interfaces\InstantiatorInterface;
+use Edamam\Traits\Searchable;
+use Edamam\Interfaces\Instantiable;
+use Edamam\Abstracts\FoodDatabaseRequest;
 
-class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
+class FoodRequest extends FoodDatabaseRequest implements Instantiable
 {
+    use Searchable;
+
     /**
      * The allowed parameters to mass-assign.
      *
@@ -105,7 +109,7 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
      *
      * @return self
      */
-    public static function instance(): InstantiatorInterface
+    public static function instance(): Instantiable
     {
         return new self();
     }
@@ -245,7 +249,7 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
         }
 
         if (is_array($minimum)) {
-            return $this->setCaloriesByArray($minimum);
+            extract($minimum);
         }
 
         $this->minimumCalories($minimum);
@@ -255,7 +259,7 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
     }
 
     /**
-     * Set the minimum calories.
+     * Get/set the minimum calories, if 0 remove limit.
      *
      * @param mixed $minimum
      *
@@ -264,7 +268,7 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
     public function minimumCalories($minimum = null)
     {
         if (1 === func_num_args()) {
-            $this->minimumCalories = abs($minimum);
+            $this->minimumCalories = abs($minimum) ?: null;
 
             return $this;
         }
@@ -273,7 +277,7 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
     }
 
     /**
-     * Get/set the maximum calories.
+     * Get/set the maximum calories, if 0 remove limit.
      *
      * @param mixed $maximum
      *
@@ -282,7 +286,7 @@ class Parser extends FoodDatabaseRequestor implements InstantiatorInterface
     public function maximumCalories($maximum = null)
     {
         if (1 === func_num_args()) {
-            $this->maximumCalories = abs($maximum);
+            $this->maximumCalories = abs($maximum) ?: null;
 
             return $this;
         }

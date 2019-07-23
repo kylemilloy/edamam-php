@@ -7,7 +7,7 @@ use Edamam\Abstracts\AuthenticatorAbstract;
 class RecipeSearch extends AuthenticatorAbstract
 {
     /**
-     * Get the Parser instance.
+     * Get the FoodRequest instance.
      *
      * @return \Edamam\Api\RecipeSearch\Search
      */

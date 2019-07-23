@@ -4,15 +4,15 @@ namespace Tests\Api\FoodDatabase;
 
 use Tests\TestCase;
 use Edamam\Support\Measurement;
-use Edamam\Api\FoodDatabase\Nutrients;
+use Edamam\Api\FoodDatabase\NutrientRequest;
 use Edamam\Api\FoodDatabase\FoodDatabase;
 
-class NutrientsTest extends TestCase
+class NutrientRequestTest extends TestCase
 {
     /**
-     * The Parser instance.
+     * The FoodRequest instance.
      *
-     * @var \Edamam\Api\FoodDatabase\Nutrients
+     * @var \Edamam\Api\FoodDatabase\NutrientRequest
      */
     protected $nutrients;
 
@@ -22,68 +22,68 @@ class NutrientsTest extends TestCase
 
         FoodDatabase::setApiCredentials(getenv('FOOD_ID'), getenv('FOOD_KEY'));
 
-        $this->nutrients = Nutrients::instance();
+        $this->requests = NutrientRequest::instance();
     }
 
     /** @test */
     public function the_nutrients_can_return_an_instance_of_itself()
     {
-        $this->assertInstanceOf(Nutrients::class, new Nutrients());
-        $this->assertInstanceOf(Nutrients::class, Nutrients::instance());
+        $this->assertInstanceOf(NutrientRequest::class, new NutrientRequest());
+        $this->assertInstanceOf(NutrientRequest::class, NutrientRequest::instance());
     }
 
     /** @test */
     public function it_can_get_set_a_yield()
     {
-        $this->assertNull($this->nutrients->yield());
+        $this->assertNull($this->requests->yield());
 
-        $this->assertInstanceOf(Nutrients::class, $this->nutrients->yield($value = 1));
+        $this->assertInstanceOf(NutrientRequest::class, $this->requests->yield($value = 1));
 
-        $this->assertEquals($value, $this->nutrients->yield());
+        $this->assertEquals($value, $this->requests->yield());
     }
 
     /** @test */
     public function it_can_get_set_a_id()
     {
-        $this->assertNull($this->nutrients->id());
+        $this->assertNull($this->requests->id());
 
-        $this->assertInstanceOf(Nutrients::class, $this->nutrients->id($value = 'test'));
+        $this->assertInstanceOf(NutrientRequest::class, $this->requests->id($value = 'test'));
 
-        $this->assertEquals($value, $this->nutrients->id());
+        $this->assertEquals($value, $this->requests->id());
     }
 
     /** @test */
     public function it_can_get_set_a_quantity()
     {
-        $this->assertNull($this->nutrients->quantity());
+        $this->assertNull($this->requests->quantity());
 
-        $this->assertInstanceOf(Nutrients::class, $this->nutrients->quantity($value = 1));
+        $this->assertInstanceOf(NutrientRequest::class, $this->requests->quantity($value = 1));
 
-        $this->assertEquals($value, $this->nutrients->quantity());
+        $this->assertEquals($value, $this->requests->quantity());
     }
 
     /** @test */
     public function it_can_get_set_a_measurement()
     {
-        $this->assertNull($this->nutrients->measurement());
+        $this->assertNull($this->requests->measurement());
 
-        $this->assertInstanceOf(Nutrients::class, $this->nutrients->measurement($value = 'test'));
+        $this->assertInstanceOf(NutrientRequest::class, $this->requests->measurement($value = 'test'));
 
-        $this->assertEquals($value, $this->nutrients->measurement());
+        $this->assertEquals($value, $this->requests->measurement());
     }
 
     /** @test */
     public function it_can_get_set_a_ingredient()
     {
-        $this->assertEmpty($this->nutrients->ingredient());
+        $this->assertEmpty($this->requests->ingredient());
 
-        $this->assertInstanceOf(Nutrients::class, $this->nutrients->ingredient($value = [
+        $this->assertInstanceOf(NutrientRequest::class, $this->requests->ingredient($value = [
             'id' => 'a',
             'quantity' => 1,
             'measurement' => Measurement::CUP,
         ]));
 
-        $this->assertEquals($value, $this->nutrients->ingredient());
+        $this->assertEquals($value, $this->requests->ingredient());
     }
 
     /** @test */
@@ -92,26 +92,19 @@ class NutrientsTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('You must enter a food ID, quantity and measurement URI.');
 
-        $this->nutrients->results();
+        $this->requests->results();
     }
 
     /** @test */
     public function it_can_fetch_a_json_response_from_the_api()
     {
-        // skip CI testing
-        if (!$this->canAuthenticateWithApi('FOOD_ID', 'FOOD_KEY')) {
-            $this->assertTrue(true);
-
-            return;
-        }
-
-        $this->nutrients->ingredient([
+        $this->requests->ingredient([
             'id' => 'food_a9zhvnmatrnpkebyfn3z2b40dfh6',
             'quantity' => 1.0,
             'measurement' => Measurement::GRAM,
         ]);
 
-        $response = $this->nutrients->fetch();
+        $response = $this->requests->fetch();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertJson($response->getBody());
     }

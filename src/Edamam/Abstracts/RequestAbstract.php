@@ -22,6 +22,18 @@ abstract class RequestAbstract
     protected $allowedQueryParameters = [];
 
     /**
+     * The API response instance.
+     *
+     * @var \GuzzleHttp\Psr7\Response
+     */
+    protected $response;
+
+    public function __construct(array $parameters = [])
+    {
+        $this->setQueryParameters($parameters);
+    }
+
+    /**
      * Return the API Credentials.
      *
      * @return array
@@ -34,6 +46,18 @@ abstract class RequestAbstract
     abstract protected function validate();
 
     /**
+     * Invalidates response cache.
+     *
+     * @return self
+     */
+    public function fresh(): self
+    {
+        $this->response = null;
+
+        return $this;
+    }
+
+    /**
      * Perform the API request.
      *
      * @throws \Exception
@@ -44,12 +68,22 @@ abstract class RequestAbstract
     {
         $this->validate();
 
-        return (new Client())
-            ->request(
+        return $this->response() ?:
+            $this->response = (new Client())->request(
                 $this->getRequestMethod(),
                 $this->getRequestUrl(),
                 $this->getRequestParameters()
             );
+    }
+
+    /**
+     * Get the raw response.
+     *
+     * @return \GuzzleHttp\Psr7\Response|null
+     */
+    public function response(): ?Response
+    {
+        return $this->response;
     }
 
     /**
@@ -59,19 +93,7 @@ abstract class RequestAbstract
      */
     public function results()
     {
-        return json_decode($this->getBody());
-    }
-
-    /**
-     * Fetch the raw response body.
-     *
-     * @param mixed $query
-     *
-     * @return mixed
-     */
-    public function getBody()
-    {
-        return $this->fetch()->getBody();
+        return json_decode($this->fetch()->getBody());
     }
 
     /**
@@ -143,13 +165,11 @@ abstract class RequestAbstract
      *
      * @return self
      */
-    public function setQueryParameters(array $parameters = null): self
+    public function setQueryParameters(array $parameters): self
     {
-        if (is_array($parameters)) {
-            foreach ($parameters as $method => $value) {
-                if (in_array($method, $this->allowedQueryParameters)) {
-                    $this->{$method}($value);
-                }
+        foreach ($parameters as $method => $value) {
+            if (in_array($method, $this->allowedQueryParameters)) {
+                $this->{$method}($value);
             }
         }
 
@@ -166,7 +186,7 @@ abstract class RequestAbstract
     public function filterParameters(array $parameters): array
     {
         return array_filter($parameters, function ($value) {
-            return null !== $value;
+            return !is_null($value);
         });
     }
 

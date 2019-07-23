@@ -2,9 +2,10 @@
 
 namespace Edamam\Api\NutritionAnalysis;
 
-use Edamam\Interfaces\InstantiatorInterface;
+use Edamam\Interfaces\Instantiable;
+use Edamam\Abstracts\NutritionAnalysisRequest;
 
-class Recipe extends NutritionAnalysisRequestor implements InstantiatorInterface
+class Recipe extends NutritionAnalysisRequest implements Instantiable
 {
     /**
      * The allowed parameters to mass-assign.
@@ -139,7 +140,7 @@ class Recipe extends NutritionAnalysisRequestor implements InstantiatorInterface
      *
      * @return self
      */
-    public static function instance(): InstantiatorInterface
+    public static function instance(): Instantiable
     {
         return new self();
     }

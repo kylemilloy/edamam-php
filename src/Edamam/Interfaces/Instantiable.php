@@ -2,7 +2,7 @@
 
 namespace Edamam\Interfaces;
 
-interface InstantiatorInterface
+interface Instantiable
 {
     /**
      * Returns the instance of itself.

@@ -11,7 +11,7 @@ class FoodDatabase extends AuthenticatorAbstract
      *
      * @return \Edamam\Api\FoodDatabase\FoodRequest
      */
-    public static function search(): FoodRequest
+    public static function parser(): FoodRequest
     {
         return FoodRequest::instance();
     }
