@@ -2,11 +2,15 @@
 
 namespace Edamam\Api\NutritionAnalysis;
 
-use Edamam\Interfaces\Instantiable;
+use Edamam\Traits\Searchable;
+use Edamam\Traits\Instantiable;
 use Edamam\Abstracts\NutritionAnalysisRequest;
 
-class Recipe extends NutritionAnalysisRequest implements Instantiable
+class Recipe extends NutritionAnalysisRequest
 {
+    use Searchable;
+    use Instantiable;
+
     /**
      * The allowed parameters to mass-assign.
      *
@@ -134,16 +138,6 @@ class Recipe extends NutritionAnalysisRequest implements Instantiable
      * @see https://developer.edamam.com/edamam-docs-nutrition-api
      */
     protected $instructions;
-
-    /**
-     * Return the Recipe instance.
-     *
-     * @return self
-     */
-    public static function instance(): Instantiable
-    {
-        return new self();
-    }
 
     /**
      * Get/set the url attribute.
@@ -404,7 +398,7 @@ class Recipe extends NutritionAnalysisRequest implements Instantiable
      *
      * @return string
      */
-    protected function getRequestPath()
+    public function getRequestPath(): string
     {
         return '/api/nutrition-details';
     }

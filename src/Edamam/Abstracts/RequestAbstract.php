@@ -4,8 +4,10 @@ namespace Edamam\Abstracts;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
+use Edamam\Interfaces\RequestInterface;
+use stdClass;
 
-abstract class RequestAbstract
+abstract class RequestAbstract implements RequestInterface
 {
     /**
      * The API base URL.
@@ -34,13 +36,6 @@ abstract class RequestAbstract
     }
 
     /**
-     * Return the API Credentials.
-     *
-     * @return array
-     */
-    abstract public static function getApiCredentials(): array;
-
-    /**
      * Customize to perform validation before the results are fetched.
      */
     abstract protected function validate();
@@ -50,7 +45,7 @@ abstract class RequestAbstract
      *
      * @return self
      */
-    public function fresh(): self
+    public function fresh(): RequestInterface
     {
         $this->response = null;
 
@@ -91,7 +86,7 @@ abstract class RequestAbstract
      *
      * @return mixed
      */
-    public function results()
+    public function results(): stdClass
     {
         return json_decode($this->fetch()->getBody());
     }
@@ -101,7 +96,7 @@ abstract class RequestAbstract
      *
      * @return string
      */
-    protected function getRequestMethod()
+    public function getRequestMethod(): string
     {
         return 'GET';
     }
@@ -111,7 +106,7 @@ abstract class RequestAbstract
      *
      * @return string
      */
-    protected function getRequestUrl()
+    public function getRequestUrl(): string
     {
         return self::BASE_URL.$this->getRequestPath();
     }
@@ -121,7 +116,7 @@ abstract class RequestAbstract
      *
      * @return string
      */
-    protected function getRequestPath()
+    public function getRequestPath(): string
     {
         return '';
     }
@@ -149,23 +144,13 @@ abstract class RequestAbstract
     }
 
     /**
-     * Get the json body parameters to send on the request.
-     *
-     * @return array
-     */
-    public function getBodyParameters(): array
-    {
-        return [];
-    }
-
-    /**
      * Mass-assign instance parameters.
      *
      * @param array $parameters
      *
      * @return self
      */
-    public function setQueryParameters(array $parameters): self
+    public function setQueryParameters(array $parameters): RequestInterface
     {
         foreach ($parameters as $method => $value) {
             if (in_array($method, $this->allowedQueryParameters)) {
@@ -174,6 +159,16 @@ abstract class RequestAbstract
         }
 
         return $this;
+    }
+
+    /**
+     * Get the json body parameters to send on the request.
+     *
+     * @return array
+     */
+    public function getBodyParameters(): array
+    {
+        return [];
     }
 
     /**

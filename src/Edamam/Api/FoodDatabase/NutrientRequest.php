@@ -2,11 +2,15 @@
 
 namespace Edamam\Api\FoodDatabase;
 
-use Edamam\Interfaces\Instantiable;
+use Edamam\Traits\Searchable;
+use Edamam\Traits\Instantiable;
 use Edamam\Abstracts\FoodDatabaseRequest;
 
-class NutrientRequest extends FoodDatabaseRequest implements Instantiable
+class NutrientRequest extends FoodDatabaseRequest
 {
+    use Searchable;
+    use Instantiable;
+
     /**
      * The allowed parameters to mass-assign.
      *
@@ -51,16 +55,6 @@ class NutrientRequest extends FoodDatabaseRequest implements Instantiable
      * @return float
      */
     protected $quantity;
-
-    /**
-     * Return the instance.
-     *
-     * @return self
-     */
-    public static function instance(): Instantiable
-    {
-        return new self();
-    }
 
     /**
      * Get/set the yield.
@@ -181,7 +175,7 @@ class NutrientRequest extends FoodDatabaseRequest implements Instantiable
      *
      * @return string
      */
-    protected function getRequestMethod()
+    public function getRequestMethod(): string
     {
         return 'POST';
     }
@@ -191,11 +185,16 @@ class NutrientRequest extends FoodDatabaseRequest implements Instantiable
      *
      * @return string
      */
-    protected function getRequestPath()
+    public function getRequestPath(): string
     {
         return '/api/food-database/nutrients';
     }
 
+    /**
+     * Get the json body parameters to send on the request.
+     *
+     * @return array
+     */
     public function getBodyParameters(): array
     {
         return $this->filterParameters([

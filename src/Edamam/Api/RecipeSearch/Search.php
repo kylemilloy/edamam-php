@@ -2,11 +2,15 @@
 
 namespace Edamam\Api\RecipeSearch;
 
-use Edamam\Interfaces\Instantiable;
+use Edamam\Traits\Searchable;
+use Edamam\Traits\Instantiable;
 use Edamam\Abstracts\RecipeSearchRequest;
 
-class Search extends RecipeSearchRequest implements Instantiable
+class Search extends RecipeSearchRequest
 {
+    use Searchable;
+    use Instantiable;
+
     /**
      * The allowed parameters to mass-assign.
      *
@@ -26,16 +30,6 @@ class Search extends RecipeSearchRequest implements Instantiable
         'excludedIngredients',
         'numberOfIngredients',
     ];
-
-    /**
-     * Return the instance.
-     *
-     * @return self
-     */
-    public static function instance(): Instantiable
-    {
-        return new self();
-    }
 
     /**
      * Get/set the to attribute.
@@ -526,7 +520,7 @@ class Search extends RecipeSearchRequest implements Instantiable
      *
      * @return string
      */
-    protected function getRequestPath()
+    public function getRequestPath(): string
     {
         return '/search';
     }

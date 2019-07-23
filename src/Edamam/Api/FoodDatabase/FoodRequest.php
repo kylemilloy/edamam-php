@@ -3,12 +3,13 @@
 namespace Edamam\Api\FoodDatabase;
 
 use Edamam\Traits\Searchable;
-use Edamam\Interfaces\Instantiable;
+use Edamam\Traits\Instantiable;
 use Edamam\Abstracts\FoodDatabaseRequest;
 
-class FoodRequest extends FoodDatabaseRequest implements Instantiable
+class FoodRequest extends FoodDatabaseRequest
 {
     use Searchable;
+    use Instantiable;
 
     /**
      * The allowed parameters to mass-assign.
@@ -103,16 +104,6 @@ class FoodRequest extends FoodDatabaseRequest implements Instantiable
      * @see https://developer.edamam.com/food-database-api-docs
      */
     protected $categoryLabel;
-
-    /**
-     * Return the instance.
-     *
-     * @return self
-     */
-    public static function instance(): Instantiable
-    {
-        return new self();
-    }
 
     /**
      * Set the ingredient to search.
@@ -389,7 +380,7 @@ class FoodRequest extends FoodDatabaseRequest implements Instantiable
      *
      * @return string
      */
-    protected function getRequestPath()
+    public function getRequestPath(): string
     {
         return '/api/food-database/parser';
     }
