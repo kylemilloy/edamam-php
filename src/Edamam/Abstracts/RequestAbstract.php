@@ -137,7 +137,7 @@ abstract class RequestAbstract implements RequestInterface
      *
      * @return array
      */
-    abstract public static function getApiCredentials(): array;
+    abstract public static function getAuthenticationParameters(): array;
 
     /**
      * Get the APIs search terms.

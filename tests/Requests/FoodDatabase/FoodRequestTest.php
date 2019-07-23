@@ -288,7 +288,7 @@ class FoodRequestTest extends TestCase
         $response = $this->request->ingredient('beer')->fetch();
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertJson($response->getBody());
+        $this->assertJson((string) $response->getBody());
     }
 
     /** @test */

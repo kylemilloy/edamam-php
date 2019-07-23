@@ -6,7 +6,7 @@ use Edamam\Api\FoodDatabase\FoodDatabase;
 
 abstract class FoodDatabaseRequest extends RequestAbstract
 {
-    public static function getApiCredentials(): array
+    public static function getAuthenticationParameters(): array
     {
         return FoodDatabase::getApiCredentials();
     }

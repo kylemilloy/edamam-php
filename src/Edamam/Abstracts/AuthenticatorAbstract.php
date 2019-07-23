@@ -52,7 +52,7 @@ abstract class AuthenticatorAbstract implements AuthenticatorInterface
      * @param string $appId
      * @param string $appKey
      */
-    public static function setApiCredentials(?string $appId = null, ?string $appKey = null)
+    public static function setApiCredentials(?string $appId = null, ?string $appKey = null): void
     {
         self::$appId = $appId;
         self::$appKey = $appKey;

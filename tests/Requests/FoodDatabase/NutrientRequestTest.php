@@ -106,6 +106,6 @@ class NutrientRequestTest extends TestCase
 
         $response = $this->request->fetch();
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertJson($response->getBody());
+        $this->assertJson((string) $response->getBody());
     }
 }

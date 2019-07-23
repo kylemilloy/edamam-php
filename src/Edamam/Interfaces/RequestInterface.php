@@ -49,18 +49,18 @@ interface RequestInterface
     public function getRequestMethod(): string;
 
     /**
-     * Return the request URL.
-     *
-     * @return string
-     */
-    public function getRequestUrl(): string;
-
-    /**
      * The API URI to request to.
      *
      * @return string
      */
     public function getRequestPath(): string;
+
+    /**
+     * Return the request URL.
+     *
+     * @return string
+     */
+    public function getRequestUrl(): string;
 
     /**
      * Return request headers.
@@ -74,7 +74,7 @@ interface RequestInterface
      *
      * @return array
      */
-    public static function getApiCredentials(): array;
+    public static function getAuthenticationParameters(): array;
 
     /**
      * Get the APIs search terms.

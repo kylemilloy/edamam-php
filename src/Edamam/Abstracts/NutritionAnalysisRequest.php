@@ -6,7 +6,7 @@ use Edamam\Api\NutritionAnalysis\NutritionAnalysis;
 
 abstract class NutritionAnalysisRequest extends RequestAbstract
 {
-    public static function getApiCredentials(): array
+    public static function getAuthenticationParameters(): array
     {
         return NutritionAnalysis::getApiCredentials();
     }

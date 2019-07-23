@@ -401,6 +401,6 @@ class FoodRequest extends FoodDatabaseRequest
             'health' => $this->healthLabel(),
             'categoryLabel' => $this->categoryLabel(),
             'nutrition-type' => $this->nutritionType(),
-        ], $this->getApiCredentials()));
+        ], $this->getAuthenticationParameters()));
     }
 }
