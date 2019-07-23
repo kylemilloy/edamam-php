@@ -133,6 +133,13 @@ abstract class RequestAbstract implements RequestInterface
     }
 
     /**
+     * Return the API Credentials.
+     *
+     * @return array
+     */
+    abstract public static function getApiCredentials(): array;
+
+    /**
      * Get the APIs search terms.
      *
      * @return array
@@ -180,7 +187,7 @@ abstract class RequestAbstract implements RequestInterface
     public function filterParameters(array $parameters): array
     {
         return array_filter($parameters, function ($value) {
-            return !is_null($value);
+            return isset($value);
         });
     }
 

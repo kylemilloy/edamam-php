@@ -7,13 +7,6 @@ use GuzzleHttp\Psr7\Response;
 interface RequestInterface
 {
     /**
-     * Return the API Credentials.
-     *
-     * @return array
-     */
-    public static function getApiCredentials(): array;
-
-    /**
      * Invalidates response cache.
      *
      * @return self
@@ -70,6 +63,13 @@ interface RequestInterface
      * @return array
      */
     public function getHeaderParameters(): array;
+
+    /**
+     * Return the API Credentials.
+     *
+     * @return array
+     */
+    public static function getApiCredentials(): array;
 
     /**
      * Get the APIs search terms.
