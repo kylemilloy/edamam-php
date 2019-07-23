@@ -5,7 +5,6 @@ namespace Edamam\Abstracts;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Edamam\Interfaces\RequestInterface;
-use stdClass;
 
 abstract class RequestAbstract implements RequestInterface
 {
@@ -86,7 +85,7 @@ abstract class RequestAbstract implements RequestInterface
      *
      * @return mixed
      */
-    public function results(): stdClass
+    public function results()
     {
         return json_decode($this->fetch()->getBody());
     }

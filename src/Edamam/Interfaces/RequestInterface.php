@@ -3,7 +3,6 @@
 namespace Edamam\Interfaces;
 
 use GuzzleHttp\Psr7\Response;
-use stdClass;
 
 interface RequestInterface
 {
@@ -42,7 +41,7 @@ interface RequestInterface
      *
      * @return mixed
      */
-    public function results(): stdClass;
+    public function results();
 
     /**
      * Return the request's method.
