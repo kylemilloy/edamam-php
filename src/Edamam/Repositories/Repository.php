@@ -19,7 +19,7 @@ class Repository implements RepositoryInterface
      *
      * @param array $data
      */
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         $this->collection = Collection::make($data);
     }
@@ -31,7 +31,7 @@ class Repository implements RepositoryInterface
      *
      * @return static
      */
-    public static function create(array $data)
+    public static function create(array $data = [])
     {
         return new static($data);
     }
@@ -46,5 +46,15 @@ class Repository implements RepositoryInterface
     public function get(string $key)
     {
         return $this->collection->get($key);
+    }
+
+    /**
+     * Return the repositories collection.
+     *
+     * @return \Tightenco\Collect\Support\Collection
+     */
+    public function collection()
+    {
+        return $this->collection;
     }
 }

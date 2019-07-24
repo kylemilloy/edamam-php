@@ -303,6 +303,6 @@ class NutrientRepository extends Repository
      */
     public function zinc(): ?float
     {
-        return $this->get(Nutrient::zinc);
+        return $this->get(Nutrient::ZINC);
     }
 }
