@@ -65,7 +65,7 @@ class Repository implements RepositoryInterface
      *
      * @return mixed
      */
-    public function get($key)
+    public function get(string $key)
     {
         return $this->collection->get($key);
     }
