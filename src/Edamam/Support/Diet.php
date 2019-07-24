@@ -2,7 +2,7 @@
 
 namespace Edamam\Support;
 
-class Diet extends Model
+class Diet
 {
     /**
      *  Protein/Fat/Carb values in 15/35/50 ratio.
