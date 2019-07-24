@@ -2,7 +2,7 @@
 
 namespace Edamam\Repositories;
 
-use Edamam\Models\Nutrient;
+use Edamam\Support\Nutrient;
 
 class NutrientRepository extends Repository
 {

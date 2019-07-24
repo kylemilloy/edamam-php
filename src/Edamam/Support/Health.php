@@ -1,6 +1,6 @@
 <?php
 
-namespace Edamam\Models;
+namespace Edamam\Support;
 
 class Health
 {

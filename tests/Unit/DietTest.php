@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Edamam\Models\Diet;
+use Edamam\Support\Diet;
 
 class DietTest extends TestCase
 {

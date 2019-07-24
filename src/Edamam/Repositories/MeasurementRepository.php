@@ -2,7 +2,7 @@
 
 namespace Edamam\Repositories;
 
-use Edamam\Models\Measurement;
+use Edamam\Support\Measurement;
 
 class MeasurementRepository extends Repository
 {

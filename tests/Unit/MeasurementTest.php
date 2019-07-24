@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Edamam\Models\Measurement;
+use Edamam\Support\Measurement;
 
 class MeasurementTest extends TestCase
 {

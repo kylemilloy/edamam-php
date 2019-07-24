@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Edamam\Models\Health;
+use Edamam\Support\Health;
 
 class HealthTest extends TestCase
 {

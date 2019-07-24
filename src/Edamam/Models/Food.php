@@ -76,14 +76,14 @@ class Food extends Model
     /**
      * The instance's nutrients.
      *
-     * @var \Edamam\Models\NutrientRepository
+     * @var \Edamam\Repositories\NutrientRepository
      */
     public $nutrients;
 
     /**
      * The instance's measurements.
      *
-     * @var \Edamam\Models\MeasurementRepository
+     * @var \Edamam\Repositories\MeasurementRepository
      */
     public $measurements;
 

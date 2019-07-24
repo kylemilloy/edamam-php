@@ -3,7 +3,7 @@
 namespace Tests\Api\FoodDatabase;
 
 use Tests\TestCase;
-use Edamam\Models\Measurement;
+use Edamam\Support\Measurement;
 use Edamam\Api\FoodDatabase\NutrientRequest;
 use Edamam\Api\FoodDatabase\FoodDatabase;
 

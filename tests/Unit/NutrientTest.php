@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Edamam\Models\Nutrient;
+use Edamam\Support\Nutrient;
 
 class NutrientTest extends TestCase
 {
