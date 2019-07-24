@@ -2,8 +2,6 @@
 
 namespace Edamam\Models;
 
-use ReflectionClass;
-
 class Model
 {
     /**
@@ -22,24 +20,11 @@ class Model
      */
     public function __get(string $name)
     {
-        if ($this->allowed($name)) {
-            return method_exists($this, $method = 'get'.ucfirst($name).'Attribute')
-                ? $this->{$method}()
-                : $this->{$name};
+        if ($method = $this->retrieveGetMutator($name)) {
+            return $this->{$method}();
         }
 
-        return null;
-    }
-
-    public function __set(string $name, $value): void
-    {
-        if ($this->allowed($name)) {
-            if (method_exists($this, $method = 'set'.ucfirst($name).'Attribute')) {
-                $this->{$method}($value);
-            } else {
-                $this->{$name} = $value;
-            }
-        }
+        return $this->{$name};
     }
 
     /**
@@ -49,7 +34,7 @@ class Model
      */
     public function __toString(): string
     {
-        return json_encode($this->toArray());
+        return $this->toJson();
     }
 
     /**
@@ -57,13 +42,50 @@ class Model
      *
      * @param array $values
      */
-    public function __construct(array $values)
+    public function __construct(array $values = [])
     {
         foreach ($values as $key => $value) {
             if ($this->allowed($key)) {
+                if ($method = $this->retrieveSetMutator($key)) {
+                    $this->{$key} = $this->{$method}($value);
+                    continue;
+                }
+
                 $this->{$key} = $value;
             }
         }
+    }
+
+    /**
+     * Returns the set mutator if available.
+     *
+     * @param string $key
+     *
+     * @return string|null
+     */
+    public function retrieveGetMutator(string $key): ?string
+    {
+        if (method_exists($this, $method = 'get'.ucfirst($key).'Attribute')) {
+            return $method;
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the set mutator if available.
+     *
+     * @param string $key
+     *
+     * @return string|null
+     */
+    public function retrieveSetMutator(string $key): ?string
+    {
+        if (method_exists($this, $method = 'set'.ucfirst($key).'Attribute')) {
+            return $method;
+        }
+
+        return null;
     }
 
     /**
@@ -71,11 +93,11 @@ class Model
      *
      * @param array $values
      *
-     * @return self
+     * @return static
      */
-    public static function create(array $values): self
+    public static function create(array $values)
     {
-        return new self($values);
+        return new static($values);
     }
 
     /**
@@ -97,7 +119,17 @@ class Model
      */
     public function getModel()
     {
-        return (new ReflectionClass($this))->getShortName();
+        return get_class(new static());
+    }
+
+    /**
+     * Convert to json string.
+     *
+     * @return string
+     */
+    public function toJson(): string
+    {
+        return json_encode($this->toArray());
     }
 
     /**
@@ -107,8 +139,12 @@ class Model
      */
     public function toArray(): array
     {
-        return array_map(function ($key) {
-            return $this->{$key};
-        }, $this->allowed);
+        $arr = [];
+
+        foreach ($this->allowed as $key) {
+            $arr[$key] = $this->{$key};
+        }
+
+        return $arr;
     }
 }

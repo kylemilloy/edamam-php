@@ -21,13 +21,13 @@ class SearchRequestTest extends TestCase
 
         RecipeSearch::setApiCredentials(getenv('RECIPE_ID'), getenv('RECIPE_KEY'));
 
-        $this->search = Search::instance();
+        $this->search = Search::create();
     }
 
     /** @test */
     public function it_can_return_an_instance_of_itself()
     {
         $this->assertInstanceOf(Search::class, new Search());
-        $this->assertInstanceOf(Search::class, Search::instance());
+        $this->assertInstanceOf(Search::class, Search::create());
     }
 }

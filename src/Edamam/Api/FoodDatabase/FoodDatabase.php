@@ -7,22 +7,22 @@ use Edamam\Abstracts\AuthenticatorAbstract;
 class FoodDatabase extends AuthenticatorAbstract
 {
     /**
-     * Get the FoodRequest instance.
+     * Get the Recipe instance.
      *
      * @return \Edamam\Api\FoodDatabase\FoodRequest
      */
     public static function search(): FoodRequest
     {
-        return FoodRequest::instance();
+        return FoodRequest::create();
     }
 
     /**
-     * Get the Nutritients instance.
+     * Get the Food instance.
      *
      * @return \Edamam\Api\FoodDatabase\NutrientRequest
      */
     public static function nutrients(): NutrientRequest
     {
-        return NutrientRequest::instance();
+        return NutrientRequest::create();
     }
 }

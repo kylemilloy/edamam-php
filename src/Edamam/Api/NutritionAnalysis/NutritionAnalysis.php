@@ -13,7 +13,7 @@ class NutritionAnalysis extends AuthenticatorAbstract
      */
     public static function recipe(): Recipe
     {
-        return Recipe::instance();
+        return Recipe::create();
     }
 
     /**
@@ -23,6 +23,6 @@ class NutritionAnalysis extends AuthenticatorAbstract
      */
     public static function food(): Food
     {
-        return Food::instance();
+        return Food::create();
     }
 }

@@ -5,6 +5,7 @@ namespace Tests\Api\FoodDatabase;
 use Tests\TestCase;
 use Edamam\Api\FoodDatabase\FoodRequest;
 use Edamam\Api\FoodDatabase\FoodDatabase;
+use Edamam\Api\FoodDatabase\FoodResponse;
 
 class FoodRequestTest extends TestCase
 {
@@ -21,14 +22,14 @@ class FoodRequestTest extends TestCase
 
         FoodDatabase::setApiCredentials(getenv('FOOD_ID'), getenv('FOOD_KEY'));
 
-        $this->request = FoodRequest::instance();
+        $this->request = FoodRequest::create();
     }
 
     /** @test */
     public function the_food_request_can_return_an_instance_of_itself()
     {
         $this->assertInstanceOf(FoodRequest::class, new FoodRequest());
-        $this->assertInstanceOf(FoodRequest::class, FoodRequest::instance());
+        $this->assertInstanceOf(FoodRequest::class, FoodRequest::create());
     }
 
     /** @test */
@@ -250,7 +251,7 @@ class FoodRequestTest extends TestCase
             'categoryLabel' => 'test',
         ];
 
-        $instance = FoodRequest::instance()->setQueryParameters($parameters);
+        $instance = FoodRequest::create()->setQueryParameters($parameters);
 
         $this->assertEquals($parameters['ingredient'], $instance->ingredient());
         $this->assertEquals($parameters['nutritionType'], $instance->nutritionType());
@@ -280,7 +281,7 @@ class FoodRequestTest extends TestCase
             'upc' => 'test',
         ];
 
-        FoodRequest::instance()->setQueryParameters($parameters);
+        FoodRequest::create()->setQueryParameters($parameters);
     }
 
     /** @test */
@@ -288,7 +289,15 @@ class FoodRequestTest extends TestCase
     {
         $this->request->ingredient('beer')->fetch();
 
-        $this->assertJson((string) $this->request->response()->raw->getBody());
+        $this->assertJson((string) $this->request->response()->raw()->getBody());
+    }
+
+    /** @test */
+    public function the_response_returns_a_response_instance()
+    {
+        $this->request->ingredient('beer');
+
+        $this->assertInstanceOf(FoodResponse::class, $this->request->response());
     }
 
     /** @test */

@@ -36,9 +36,24 @@ abstract class RequestAbstract implements RequestInterface
      */
     protected $response;
 
+    /**
+     * Instantiate the class.
+     *
+     * @param array $parameters
+     */
     public function __construct(array $parameters = [])
     {
         $this->setQueryParameters($parameters);
+    }
+
+    /**
+     * Instantiate the class.
+     *
+     * @param array $parameters
+     */
+    public static function create(array $parameters = [])
+    {
+        return new static($parameters);
     }
 
     /**
@@ -49,9 +64,9 @@ abstract class RequestAbstract implements RequestInterface
     /**
      * Invalidates response cache.
      *
-     * @return self
+     * @return static
      */
-    public function fresh(): RequestInterface
+    public function fresh()
     {
         $this->response = null;
 
@@ -159,9 +174,9 @@ abstract class RequestAbstract implements RequestInterface
      *
      * @param array $parameters
      *
-     * @return self
+     * @return static
      */
-    public function setQueryParameters(array $parameters): RequestInterface
+    public function setQueryParameters(array $parameters)
     {
         foreach ($parameters as $method => $value) {
             if (in_array($method, $this->allowedQueryParameters)) {

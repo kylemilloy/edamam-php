@@ -3,13 +3,11 @@
 namespace Edamam\Api\NutritionAnalysis;
 
 use Edamam\Traits\Findable;
-use Edamam\Traits\Instantiable;
 use Edamam\Abstracts\NutritionAnalysisRequest;
 
 class Food extends NutritionAnalysisRequest
 {
     use Findable;
-    use Instantiable;
 
     /**
      * The allowed parameters to mass-assign.
@@ -60,9 +58,9 @@ class Food extends NutritionAnalysisRequest
     /**
      * Enable food logging.
      *
-     * @return self
+     * @return static
      */
-    public function enableFoodLogging(): self
+    public function enableFoodLogging()
     {
         return $this->nutritionType('logging');
     }
@@ -70,9 +68,9 @@ class Food extends NutritionAnalysisRequest
     /**
      * Disable food logging.
      *
-     * @return self
+     * @return static
      */
-    public function disableFoodLogging(): self
+    public function disableFoodLogging()
     {
         return $this->nutritionType(null);
     }

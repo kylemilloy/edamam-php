@@ -21,14 +21,14 @@ class RecipeRequestTest extends TestCase
 
         NutritionAnalysis::setApiCredentials(getenv('NUTRITION_ID'), getenv('NUTRITION_KEY'));
 
-        $this->recipe = Recipe::instance();
+        $this->recipe = Recipe::create();
     }
 
     /** @test */
     public function it_can_return_an_instance_of_itself()
     {
         $this->assertInstanceOf(Recipe::class, new Recipe());
-        $this->assertInstanceOf(Recipe::class, Recipe::instance());
+        $this->assertInstanceOf(Recipe::class, Recipe::create());
     }
 
     /** @test */

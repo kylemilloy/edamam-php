@@ -2,6 +2,8 @@
 
 namespace Edamam\Models;
 
+use Edamam\Repositories\NutrientRepository;
+
 class Food extends Model
 {
     /**
@@ -10,9 +12,11 @@ class Food extends Model
      * @var array
      */
     protected $allowed = [
-        'id',
+        'uri',
         'brand',
+        'image',
         'label',
+        'foodId',
         'category',
         'nutrients',
         'measurement',
@@ -20,131 +24,83 @@ class Food extends Model
     ];
 
     /**
-     * The instance's ID.
+     * Food's uri, if applicable.
      *
      * @var string
      */
-    protected $id;
+    public $uri;
 
     /**
      * Food's brand, if applicable.
      *
      * @var string
      */
-    protected $brand;
+    public $brand;
 
     /**
      * The instance's human readable label.
      *
      * @var string
      */
-    protected $label;
+    public $label;
+
+    /**
+     * The instance's image url.
+     *
+     * @var string
+     */
+    public $image;
+
+    /**
+     * The instance's ID.
+     *
+     * @var string
+     */
+    public $foodId;
 
     /**
      * The instance's source.
      *
      * @var string
      */
-    protected $source;
+    public $source;
 
     /**
      * Category as: generic, generic meal, packaged food, fast food, etc.
      *
      * @var string
      */
-    protected $category;
+    public $category;
 
     /**
      * The instance's nutrients.
      *
      * @var \Edamam\Models\Nutrient[]
      */
-    protected $nutrients;
+    public $nutrients;
 
     /**
      * The instance's measurements.
      *
      * @var \Edamam\Models\Measurement
      */
-    protected $measurement;
+    public $measurement;
 
     /**
      * Item type as food or meal.
      *
      * @var string
      */
-    protected $categoryLabel;
-
-    /**
-     * Get the id attribute.
-     *
-     * @return string
-     */
-    public function getIdAttribute(): string
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get the brand attribute.
-     *
-     * @return string
-     */
-    public function getBrandAttribute(): string
-    {
-        return $this->brand;
-    }
-
-    /**
-     * Get the label attribute.
-     *
-     * @return string
-     */
-    public function getLabelAttribute(): string
-    {
-        return $this->label;
-    }
-
-    /**
-     * Get the category attribute.
-     *
-     * @return string
-     */
-    public function getCategoryAttribute(): string
-    {
-        return $this->category;
-    }
-
-    /**
-     * Get the nutrients array attribute.
-     *
-     * @return array
-     */
-    public function getNutrientsAttribute(): array
-    {
-        return $this->nutrients;
-    }
+    public $categoryLabel;
 
     /**
      * Set the nutrients array attribute.
      *
      * @param array $nutrients
      */
-    public function setNutrientsAttribute(array $nutrients): void
+    public function setNutrientsAttribute(array $nutrients)
     {
-        $this->nutrients = array_map(function ($nutrient) {
-            return Nutrient::create($nutrient);
-        }, $nutrients);
-    }
-
-    /**
-     * Get the measurement attribute.
-     *
-     * @return \Edamam\Models\Measurement|null
-     */
-    public function getMeasurementAttribute(): ?Measurement
-    {
-        return $this->measurement;
+        return NutrientRepository::create($nutrients);
     }
 
     /**
@@ -152,18 +108,8 @@ class Food extends Model
      *
      * @param array $measurement
      */
-    public function setMeasurementAttribute(array $measurement): void
+    public function setMeasurementAttribute(array $measurement)
     {
-        $this->measurement = Measurement::create($measurement);
-    }
-
-    /**
-     * Get the category label.
-     *
-     * @return string
-     */
-    public function getCategoryLabelAttribute(): string
-    {
-        return $this->categoryLabel;
+        return Measurement::create($measurement);
     }
 }

@@ -14,6 +14,20 @@ interface ResponseInterface
     public function __construct(HttpResponse $response);
 
     /**
+     * Return the raw response.
+     *
+     * @return mixed
+     */
+    public function raw();
+
+    /**
+     * Return the response data.
+     *
+     * @return mixed
+     */
+    public function data();
+
+    /**
      * Return the primary results.
      *
      * @return mixed

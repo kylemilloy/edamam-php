@@ -3,13 +3,11 @@
 namespace Edamam\Api\RecipeSearch;
 
 use Edamam\Traits\Findable;
-use Edamam\Traits\Instantiable;
 use Edamam\Abstracts\RecipeSearchRequest;
 
 class Search extends RecipeSearchRequest
 {
     use Findable;
-    use Instantiable;
 
     /**
      * The allowed parameters to mass-assign.
@@ -150,9 +148,9 @@ class Search extends RecipeSearchRequest
      *
      * @param array $time
      *
-     * @return self
+     * @return static
      */
-    protected function setTimeByArray(array $time): self
+    protected function setTimeByArray(array $time)
     {
         if (isset($time['minimum']) || isset($time[0])) {
             $this->minimumCalories($time['minimum'] ?? $time[0]);
@@ -316,9 +314,9 @@ class Search extends RecipeSearchRequest
      *
      * @param array $calories
      *
-     * @return self
+     * @return static
      */
-    protected function setCaloriesByArray(array $calories): self
+    protected function setCaloriesByArray(array $calories)
     {
         if (isset($calories['minimum']) || isset($calories[0])) {
             $this->minimumCalories($calories['minimum'] ?? $calories[0]);

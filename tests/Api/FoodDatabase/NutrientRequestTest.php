@@ -22,14 +22,14 @@ class NutrientRequestTest extends TestCase
 
         FoodDatabase::setApiCredentials(getenv('FOOD_ID'), getenv('FOOD_KEY'));
 
-        $this->request = NutrientRequest::instance();
+        $this->request = NutrientRequest::create();
     }
 
     /** @test */
     public function the_nutrients_can_return_an_instance_of_itself()
     {
         $this->assertInstanceOf(NutrientRequest::class, new NutrientRequest());
-        $this->assertInstanceOf(NutrientRequest::class, NutrientRequest::instance());
+        $this->assertInstanceOf(NutrientRequest::class, NutrientRequest::create());
     }
 
     /** @test */

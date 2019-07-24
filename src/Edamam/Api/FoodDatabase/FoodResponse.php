@@ -4,52 +4,46 @@ namespace Edamam\Api\FoodDatabase;
 
 use Edamam\Models\Food;
 use Edamam\Api\Response;
+use Tightenco\Collect\Support\Collection;
+use Tightenco\Collect\Support\Arr;
 
 class FoodResponse extends Response
 {
     /**
-     * The parsed food result.
-     *
-     * @var \Edamam\Models\Food
-     */
-    protected $parsed;
-
-    /**
-     * An array of possible foods.
-     *
-     * @var \Edamam\Models\Food[]
-     */
-    protected $hints;
-
-    /**
      * Process the response.
      */
-    protected function process(): void
+    protected function setResultsAttribute(): void
     {
-        $this->parsed = Food::create($this->data['parsed']);
-
-        $this->hints = array_map(function ($hint) {
-            return Food::create($hint['food']);
-        }, $this->data['hints']);
+        $this->results = Collection::make(
+            $this->parsed(),
+            $this->hints(),
+        )->map(function ($value) {
+            return Food::create($value);
+        });
     }
 
     /**
-     * Return the primary response value.
+     * Extract the "parsed" results.
      *
-     * @return mixed
+     * @return array
      */
-    public function results()
+    protected function parsed(): array
     {
-        return $this->parsed;
+        return Collection::make(Arr::get($this->data, 'parsed'))
+            ->first();
     }
 
     /**
-     * Return the additional food hints.
+     * Extract the "hints" results.
      *
      * @return array|null
      */
-    public function hints(): ?array
+    protected function hints()
     {
-        return $this->hints;
+        return Collection::make(Arr::get($this->data, 'hints'))
+            ->map(function ($value) {
+                return Arr::get($value, 'food');
+            })
+            ->toArray();
     }
 }

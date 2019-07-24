@@ -11,9 +11,9 @@ interface RequestInterface
      *
      * @throws \Exception
      *
-     * @return self
+     * @return static
      */
-    public function fetch(): self;
+    public function fetch();
 
     /**
      * Get the raw response.
@@ -30,9 +30,9 @@ interface RequestInterface
     /**
      * Invalidates response cache.
      *
-     * @return self
+     * @return static
      */
-    public function fresh(): self;
+    public function fresh();
 
     /**
      * Return the request's method.
@@ -81,9 +81,9 @@ interface RequestInterface
      *
      * @param array $parameters
      *
-     * @return self
+     * @return static
      */
-    public function setQueryParameters(array $parameters): self;
+    public function setQueryParameters(array $parameters);
 
     /**
      * Get the json body parameters to send on the request.

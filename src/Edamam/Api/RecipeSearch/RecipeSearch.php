@@ -13,6 +13,6 @@ class RecipeSearch extends AuthenticatorAbstract
      */
     public static function search(): Search
     {
-        return Search::instance();
+        return Search::create();
     }
 }

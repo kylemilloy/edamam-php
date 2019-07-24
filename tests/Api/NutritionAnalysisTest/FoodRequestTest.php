@@ -21,13 +21,13 @@ class FoodRequestTest extends TestCase
 
         NutritionAnalysis::setApiCredentials(getenv('NUTRITION_ID'), getenv('NUTRITION_KEY'));
 
-        $this->food = Food::instance();
+        $this->food = Food::create();
     }
 
     /** @test */
     public function it_can_return_an_instance_of_itself()
     {
         $this->assertInstanceOf(Food::class, new Food());
-        $this->assertInstanceOf(Food::class, Food::instance());
+        $this->assertInstanceOf(Food::class, Food::create());
     }
 }
