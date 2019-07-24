@@ -48,6 +48,7 @@ class Model
             if ($this->allowed($key)) {
                 if ($method = $this->retrieveSetMutator($key)) {
                     $this->{$key} = $this->{$method}($value);
+
                     continue;
                 }
 
