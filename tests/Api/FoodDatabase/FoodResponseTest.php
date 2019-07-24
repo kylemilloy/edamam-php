@@ -15,7 +15,7 @@ class FoodResponseTest extends TestCase
     {
         FoodDatabase::setApiCredentials(getenv('FOOD_ID'), getenv('FOOD_KEY'));
 
-        $this->response = FoodRequest::query(['ingredient' => 'beer']);
+        $this->response = FoodRequest::find(['ingredient' => 'beer']);
     }
 
     /** @test */
