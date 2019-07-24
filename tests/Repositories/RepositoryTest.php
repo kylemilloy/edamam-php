@@ -16,7 +16,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function it_creates_a_collection()
     {
-        $this->assertInstanceOf(Collection::class, $this->repository->collection());
+        $this->assertInstanceOf(Collection::class, $this->repository->all());
     }
 
     /** @test */

@@ -2,7 +2,7 @@
 
 namespace Edamam\Models;
 
-class Nutrient
+class Nutrient extends Model
 {
     /**
      * Calcium in mg.
@@ -211,4 +211,28 @@ class Nutrient
      * Zinc measured in mg.
      */
     const ZINC = 'ZN';
+
+    /**
+     * The values that are mass-assignable.
+     *
+     * @var array
+     */
+    protected $allowed = [
+        'label',
+        'value',
+    ];
+
+    /**
+     * Nutrient's label.
+     *
+     * @var string
+     */
+    public $label;
+
+    /**
+     * Nutrient's value.
+     *
+     * @var float
+     */
+    public $value;
 }

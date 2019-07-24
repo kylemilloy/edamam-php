@@ -21,7 +21,19 @@ class Repository implements RepositoryInterface
      */
     public function __construct(array $data = [])
     {
-        $this->collection = Collection::make($data);
+        $this->collection = Collection::make($this->process($data));
+    }
+
+    /**
+     * Process and cast data if necessary.
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function process(array $data)
+    {
+        return $data;
     }
 
     /**
@@ -39,22 +51,42 @@ class Repository implements RepositoryInterface
     /**
      * Return the value from the collection.
      *
-     * @param string $key
+     * @return \Tightenco\Collect\Support\Collection
+     */
+    public function all(): Collection
+    {
+        return $this->collection;
+    }
+
+    /**
+     * Return the value from the collection.
+     *
+     * @param mixed $key
      *
      * @return mixed
      */
-    public function get(string $key)
+    public function get($key)
     {
         return $this->collection->get($key);
     }
 
     /**
-     * Return the repositories collection.
+     * Cast to array.
      *
-     * @return \Tightenco\Collect\Support\Collection
+     * @return array
      */
-    public function collection()
+    public function toArray(): array
     {
-        return $this->collection;
+        return $this->all()->toArray();
+    }
+
+    /**
+     * Cast to JSON.
+     *
+     * @return string
+     */
+    public function toJson(): string
+    {
+        return json_encode($this->toArray());
     }
 }

@@ -12,6 +12,26 @@ class Model
     protected $allowed = [];
 
     /**
+     * Build the model.
+     *
+     * @param array $values
+     */
+    public function __construct(array $values = [])
+    {
+        foreach ($values as $key => $value) {
+            if ($this->allowed($key)) {
+                if ($method = $this->retrieveSetMutator($key)) {
+                    $this->{$key} = $this->{$method}($value);
+
+                    continue;
+                }
+
+                $this->{$key} = $value;
+            }
+        }
+    }
+
+    /**
      * Find the instance's property or return null.
      *
      * @param string $key
@@ -35,26 +55,6 @@ class Model
     public function __toString(): string
     {
         return $this->toJson();
-    }
-
-    /**
-     * Build the model.
-     *
-     * @param array $values
-     */
-    public function __construct(array $values = [])
-    {
-        foreach ($values as $key => $value) {
-            if ($this->allowed($key)) {
-                if ($method = $this->retrieveSetMutator($key)) {
-                    $this->{$key} = $this->{$method}($value);
-
-                    continue;
-                }
-
-                $this->{$key} = $value;
-            }
-        }
     }
 
     /**
@@ -140,8 +140,6 @@ class Model
      */
     public function toArray(): array
     {
-        $arr = [];
-
         foreach ($this->allowed as $key) {
             $arr[$key] = $this->{$key};
         }

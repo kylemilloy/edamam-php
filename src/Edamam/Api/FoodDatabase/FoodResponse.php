@@ -4,8 +4,8 @@ namespace Edamam\Api\FoodDatabase;
 
 use Edamam\Models\Food;
 use Edamam\Api\Response;
-use Tightenco\Collect\Support\Collection;
 use Tightenco\Collect\Support\Arr;
+use Tightenco\Collect\Support\Collection;
 
 class FoodResponse extends Response
 {
@@ -15,35 +15,26 @@ class FoodResponse extends Response
     protected function setResultsAttribute(): void
     {
         $this->results = Collection::make(
-            $this->parsed(),
-            $this->hints()
-        )->map(function ($value) {
-            return Food::create($value);
-        });
+            $this->extractData()
+        )->mapInto(Food::class);
     }
 
     /**
-     * Extract the "parsed" results.
-     *
-     * @return array
-     */
-    protected function parsed(): array
-    {
-        return Collection::make(Arr::get($this->data, 'parsed'))
-            ->first();
-    }
-
-    /**
-     * Extract the "hints" results.
+     * Extract the "hints" results and merge measures into
+     * each food array.
      *
      * @return array|null
      */
-    protected function hints()
+    protected function extractData()
     {
-        return Collection::make(Arr::get($this->data, 'hints'))
-            ->map(function ($value) {
-                return Arr::get($value, 'food');
-            })
-            ->toArray();
+        return array_map(function ($arr) {
+            $measurements = Arr::pull($arr, 'measures');
+
+            return Arr::add(
+                Arr::get($arr, 'food'),
+                'measurements',
+                $measurements
+            );
+        }, Arr::get($this->data, 'hints'));
     }
 }

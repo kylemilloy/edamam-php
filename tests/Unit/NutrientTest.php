@@ -174,4 +174,10 @@ class NutrientTest extends TestCase
     {
         $this->assertEquals('VITK1', Nutrient::VITAMIN_K);
     }
+
+    /** @test */
+    public function it_has_a_zinc_accessor()
+    {
+        $this->assertEquals('ZN', Nutrient::ZINC);
+    }
 }
