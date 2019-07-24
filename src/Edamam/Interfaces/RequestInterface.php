@@ -24,6 +24,8 @@ interface RequestInterface
 
     /**
      * Customize to perform validation before the results are fetched.
+     *
+     * @throws \Exception
      */
     public function validate();
 

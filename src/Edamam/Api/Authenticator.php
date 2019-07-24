@@ -1,10 +1,10 @@
 <?php
 
-namespace Edamam\Abstracts;
+namespace Edamam\Api;
 
 use Edamam\Interfaces\AuthenticatorInterface;
 
-abstract class AuthenticatorAbstract implements AuthenticatorInterface
+class Authenticator implements AuthenticatorInterface
 {
     /**
      * The Edamam application ID.

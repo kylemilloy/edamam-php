@@ -3,10 +3,10 @@
 namespace Tests\Api;
 
 use Tests\TestCase;
+use Edamam\Models\Food;
 use Edamam\Api\FoodDatabase\FoodRequest;
 use Edamam\Api\FoodDatabase\FoodDatabase;
 use Tightenco\Collect\Support\Collection;
-use Edamam\Models\Food;
 use Edamam\Repositories\NutrientRepository;
 use Edamam\Repositories\MeasurementRepository;
 

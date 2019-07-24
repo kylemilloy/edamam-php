@@ -2,9 +2,9 @@
 
 namespace Edamam\Api\FoodDatabase;
 
-use Edamam\Abstracts\AuthenticatorAbstract;
+use Edamam\Api\Authenticator;
 
-class FoodDatabase extends AuthenticatorAbstract
+class FoodDatabase extends Authenticator
 {
     /**
      * Get the Recipe instance.

@@ -1,12 +1,11 @@
 <?php
 
-namespace Edamam\Abstracts;
+namespace Edamam\Api;
 
 use GuzzleHttp\Client;
-use Edamam\Api\Response;
 use Edamam\Interfaces\RequestInterface;
 
-abstract class RequestAbstract implements RequestInterface
+class Request implements RequestInterface
 {
     /**
      * The API base URL.
@@ -57,9 +56,27 @@ abstract class RequestAbstract implements RequestInterface
     }
 
     /**
-     * Customize to perform validation before the results are fetched.
+     * Quickly execute a request to the database.
+     *
+     * @param array $parameters
+     *
+     * @return \GuzzleHttp\Psr7\Response
      */
-    abstract public function validate();
+    public static function find(array $parameters)
+    {
+        return self::create($parameters)
+            ->fetch()
+            ->response();
+    }
+
+    /**
+     * Customize to perform validation before the results are fetched.
+     *
+     * @throws \Exception
+     */
+    public function validate()
+    {
+    }
 
     /**
      * Invalidates response cache.
@@ -155,7 +172,10 @@ abstract class RequestAbstract implements RequestInterface
      *
      * @return array
      */
-    abstract public static function getAuthenticationParameters(): array;
+    public static function getAuthenticationParameters(): array
+    {
+        return [];
+    }
 
     /**
      * Get the APIs search terms.

@@ -2,13 +2,8 @@
 
 namespace Edamam\Api\RecipeSearch;
 
-use Edamam\Traits\Findable;
-use Edamam\Abstracts\RecipeSearchRequest;
-
 class Search extends RecipeSearchRequest
 {
-    use Findable;
-
     /**
      * The allowed parameters to mass-assign.
      *
@@ -28,6 +23,16 @@ class Search extends RecipeSearchRequest
         'excludedIngredients',
         'numberOfIngredients',
     ];
+
+    /**
+     * Return the API Credentials.
+     *
+     * @return array
+     */
+    public static function getAuthenticationParameters(): array
+    {
+        return RecipeSearch::getApiCredentials();
+    }
 
     /**
      * Get/set the to attribute.

@@ -2,9 +2,9 @@
 
 namespace Edamam\Api\NutritionAnalysis;
 
-use Edamam\Abstracts\AuthenticatorAbstract;
+use Edamam\Api\Authenticator;
 
-class NutritionAnalysis extends AuthenticatorAbstract
+class NutritionAnalysis extends Authenticator
 {
     /**
      * Get the Recipe instance.

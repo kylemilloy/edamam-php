@@ -2,13 +2,8 @@
 
 namespace Edamam\Api\FoodDatabase;
 
-use Edamam\Traits\Findable;
-use Edamam\Abstracts\FoodDatabaseRequest;
-
 class FoodRequest extends FoodDatabaseRequest
 {
-    use Findable;
-
     /**
      * The name of the response class.
      *

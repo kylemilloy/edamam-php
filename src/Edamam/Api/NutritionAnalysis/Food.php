@@ -2,13 +2,8 @@
 
 namespace Edamam\Api\NutritionAnalysis;
 
-use Edamam\Traits\Findable;
-use Edamam\Abstracts\NutritionAnalysisRequest;
-
 class Food extends NutritionAnalysisRequest
 {
-    use Findable;
-
     /**
      * The allowed parameters to mass-assign.
      *

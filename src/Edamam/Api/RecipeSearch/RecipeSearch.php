@@ -2,9 +2,9 @@
 
 namespace Edamam\Api\RecipeSearch;
 
-use Edamam\Abstracts\AuthenticatorAbstract;
+use Edamam\Api\Authenticator;
 
-class RecipeSearch extends AuthenticatorAbstract
+class RecipeSearch extends Authenticator
 {
     /**
      * Get the FoodRequest instance.
