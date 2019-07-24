@@ -16,7 +16,7 @@ class FoodResponse extends Response
     {
         $this->results = Collection::make(
             $this->parsed(),
-            $this->hints(),
+            $this->hints()
         )->map(function ($value) {
             return Food::create($value);
         });
