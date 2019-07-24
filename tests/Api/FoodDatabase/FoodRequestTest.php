@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Edamam\Api\FoodDatabase\FoodRequest;
 use Edamam\Api\FoodDatabase\FoodDatabase;
 use Edamam\Api\FoodDatabase\FoodResponse;
+use Edamam\Api\Response;
 
 class FoodRequestTest extends TestCase
 {
@@ -267,7 +268,7 @@ class FoodRequestTest extends TestCase
     {
         $results = FoodRequest::find(['ingredient' => 'beer']);
 
-        $this->assertNotNull($results);
+        $this->assertInstanceOf(Response::class, $results);
     }
 
     /** @test */
