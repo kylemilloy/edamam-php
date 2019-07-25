@@ -3,10 +3,11 @@
 namespace Tests\Api\FoodDatabase;
 
 use Tests\TestCase;
+use Edamam\Api\Response;
+use Edamam\Support\Health;
 use Edamam\Api\FoodDatabase\FoodRequest;
 use Edamam\Api\FoodDatabase\FoodDatabase;
 use Edamam\Api\FoodDatabase\FoodResponse;
-use Edamam\Api\Response;
 
 class FoodRequestTest extends TestCase
 {
@@ -299,5 +300,58 @@ class FoodRequestTest extends TestCase
         $this->request->ingredient('beer');
 
         $this->assertInstanceOf(FoodResponse::class, $this->request->response());
+    }
+
+    /** @test */
+    public function it_can_get_a_result_from_a_upc()
+    {
+        $this->request->upc('034100572563');
+
+        $this->assertJson($this->request->response()->results()->toJson());
+    }
+
+    /** @test */
+    public function it_can_get_a_result_from_a_calorie_range()
+    {
+        $this->request->ingredient('beer')
+            ->minimumCalories(200);
+
+        $this->assertJson($this->request->response()->results()->toJson());
+    }
+
+    /** @test */
+    public function it_can_get_a_result_from_a_health_label()
+    {
+        $this->request->ingredient('beer')
+            ->healthLabel(Health::ALCOHOL_FREE);
+
+        $this->assertJson($this->request->response()->results()->toJson());
+    }
+
+    /** @test */
+    public function it_can_get_a_result_from_a_category_label()
+    {
+        $this->request->ingredient('beer')
+            ->categoryLabel('meal');
+
+        $this->assertJson($this->request->response()->results()->toJson());
+    }
+
+    /** @test */
+    public function it_can_get_a_result_from_a_category()
+    {
+        $this->request->ingredient('beer')
+            ->category('generic-foods');
+
+        $this->assertJson($this->request->response()->results()->toJson());
+    }
+
+    /** @test */
+    public function it_can_get_results_after_enabling_nutrition_logging()
+    {
+        $this->request->ingredient('beer')
+            ->enableFoodLogging();
+
+        $this->assertJson($this->request->response()->results()->toJson());
     }
 }
