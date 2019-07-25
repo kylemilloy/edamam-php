@@ -217,9 +217,7 @@ class FoodRequest extends FoodDatabaseRequest
     public function healthLabel($healthLabel = null)
     {
         if (1 === func_num_args()) {
-            $this->healthLabel = is_array($healthLabel)
-                ? $healthLabel
-                : [$healthLabel];
+            $this->healthLabel = $healthLabel;
 
             return $this;
         }
@@ -355,9 +353,7 @@ class FoodRequest extends FoodDatabaseRequest
     public function categoryLabel($categoryLabel = null)
     {
         if (1 === func_num_args()) {
-            $this->categoryLabel = is_array($categoryLabel)
-                ? $categoryLabel
-                : [$categoryLabel];
+            $this->categoryLabel = $categoryLabel;
 
             return $this;
         }
@@ -403,7 +399,7 @@ class FoodRequest extends FoodDatabaseRequest
             'calories' => $this->calories(),
             'category' => $this->category(),
             'health' => $this->healthLabel(),
-            'category-label' => $this->categoryLabel(),
+            'categoryLabel' => $this->categoryLabel(),
             'nutrition-type' => $this->nutritionType(),
         ], $this->getAuthenticationParameters()));
     }
