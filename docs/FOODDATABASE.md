@@ -17,7 +17,7 @@ FoodRequest::create();
 
 ### Setting request parameters
 
-The following are the query parameters that you are allowed to be set.
+The following are the query parameters that you are allowed to set.
 
 ```php
 /**
