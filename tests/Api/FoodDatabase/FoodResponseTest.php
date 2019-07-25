@@ -8,7 +8,6 @@ use Edamam\Api\FoodDatabase\FoodRequest;
 use Edamam\Api\FoodDatabase\FoodDatabase;
 use Tightenco\Collect\Support\Collection;
 use Edamam\Repositories\NutrientRepository;
-use Edamam\Repositories\MeasurementRepository;
 
 class FoodResponseTest extends TestCase
 {
@@ -32,13 +31,5 @@ class FoodResponseTest extends TestCase
         $results = FoodRequest::find(['ingredient' => 'beer'])->results();
 
         $this->assertInstanceOf(NutrientRepository::class, $results->first()->nutrients);
-    }
-
-    /** @test */
-    public function it_casts_measurements_to_a_repository()
-    {
-        $results = FoodRequest::find(['ingredient' => 'beer'])->results();
-
-        $this->assertInstanceOf(MeasurementRepository::class, $results->first()->measurements);
     }
 }

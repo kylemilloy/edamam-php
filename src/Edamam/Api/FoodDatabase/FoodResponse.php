@@ -20,21 +20,14 @@ class FoodResponse extends Response
     }
 
     /**
-     * Extract the "hints" results and merge measures into
-     * each food array.
+     * Extract the "hints" results.
      *
      * @return array|null
      */
     protected function extractData()
     {
         return array_map(function ($arr) {
-            $measurements = Arr::pull($arr, 'measures');
-
-            return Arr::add(
-                Arr::get($arr, 'food'),
-                'measurements',
-                $measurements
-            );
+            return Arr::get($arr, 'food');
         }, Arr::get($this->data, 'hints'));
     }
 }

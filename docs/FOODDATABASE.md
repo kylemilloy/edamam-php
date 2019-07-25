@@ -130,7 +130,6 @@ protected $allowed = [
     'foodId',
     'category',
     'nutrients',
-    'measurements',
     'categoryLabel',
 ];
 ```

@@ -3,7 +3,6 @@
 namespace Edamam\Models;
 
 use Edamam\Repositories\NutrientRepository;
-use Edamam\Repositories\MeasurementRepository;
 
 class Food extends Model
 {
@@ -20,7 +19,6 @@ class Food extends Model
         'foodId',
         'category',
         'nutrients',
-        'measurements',
         'categoryLabel',
     ];
 
@@ -81,13 +79,6 @@ class Food extends Model
     public $nutrients;
 
     /**
-     * The instance's measurements.
-     *
-     * @var \Edamam\Repositories\MeasurementRepository
-     */
-    public $measurements;
-
-    /**
      * Item type as food or meal.
      *
      * @var string
@@ -102,15 +93,5 @@ class Food extends Model
     public function setNutrientsAttribute(array $nutrients)
     {
         return NutrientRepository::create($nutrients);
-    }
-
-    /**
-     * Create and set the measurement.
-     *
-     * @param array $measurement
-     */
-    public function setMeasurementsAttribute(array $measurements)
-    {
-        return MeasurementRepository::create($measurements);
     }
 }

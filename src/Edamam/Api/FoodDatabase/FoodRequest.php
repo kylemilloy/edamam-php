@@ -403,7 +403,7 @@ class FoodRequest extends FoodDatabaseRequest
             'calories' => $this->calories(),
             'category' => $this->category(),
             'health' => $this->healthLabel(),
-            'categoryLabel' => $this->categoryLabel(),
+            'category-label' => $this->categoryLabel(),
             'nutrition-type' => $this->nutritionType(),
         ], $this->getAuthenticationParameters()));
     }
