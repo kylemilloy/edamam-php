@@ -4,7 +4,6 @@ namespace Tests\Api\FoodDatabase;
 
 use Tests\TestCase;
 use Edamam\Api\FoodDatabase\FoodRequest;
-use Edamam\Api\FoodDatabase\NutrientRequest;
 use Edamam\Api\FoodDatabase\FoodDatabase;
 
 class FoodDatabaseTest extends TestCase
@@ -13,7 +12,6 @@ class FoodDatabaseTest extends TestCase
     public function it_holds_reference_to_its_two_request_types()
     {
         $this->assertInstanceOf(FoodRequest::class, FoodDatabase::search());
-        $this->assertInstanceOf(NutrientRequest::class, FoodDatabase::nutrients());
     }
 
     /** @test */

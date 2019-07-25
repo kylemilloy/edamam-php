@@ -15,14 +15,4 @@ class FoodDatabase extends Authenticator
     {
         return FoodRequest::create();
     }
-
-    /**
-     * Get the Food instance.
-     *
-     * @return \Edamam\Api\FoodDatabase\NutrientRequest
-     */
-    public static function nutrients(): NutrientRequest
-    {
-        return NutrientRequest::create();
-    }
 }
