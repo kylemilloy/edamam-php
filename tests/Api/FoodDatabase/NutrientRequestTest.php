@@ -4,8 +4,9 @@ namespace Tests\Api\FoodDatabase;
 
 use Tests\TestCase;
 use Edamam\Support\Measurement;
-use Edamam\Api\FoodDatabase\NutrientRequest;
 use Edamam\Api\FoodDatabase\FoodDatabase;
+use Edamam\Api\FoodDatabase\NutrientRequest;
+use Edamam\Api\FoodDatabase\NutrientResponse;
 
 class NutrientRequestTest extends TestCase
 {
@@ -105,5 +106,17 @@ class NutrientRequestTest extends TestCase
         ]);
 
         $this->assertNotNull($response = $this->request->response());
+    }
+
+    /** @test */
+    public function the_response_returns_a_response_instance()
+    {
+        $this->request->ingredient([
+            'id' => 'food_a9zhvnmatrnpkebyfn3z2b40dfh6',
+            'quantity' => 1.0,
+            'measurement' => Measurement::GRAM,
+        ]);
+
+        $this->assertInstanceOf(NutrientResponse::class, $this->request->response());
     }
 }

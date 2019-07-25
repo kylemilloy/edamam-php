@@ -300,12 +300,4 @@ class FoodRequestTest extends TestCase
 
         $this->assertInstanceOf(FoodResponse::class, $this->request->response());
     }
-
-    /** @test */
-    public function the_food_request_caches_its_response()
-    {
-        $results = $this->request->ingredient('pizza')->fetch();
-
-        $this->assertNotNull($response = $this->request->response());
-    }
 }

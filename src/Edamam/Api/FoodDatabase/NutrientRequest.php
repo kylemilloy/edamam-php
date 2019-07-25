@@ -5,6 +5,13 @@ namespace Edamam\Api\FoodDatabase;
 class NutrientRequest extends FoodDatabaseRequest
 {
     /**
+     * The name of the response class.
+     *
+     * @var string
+     */
+    protected $responseClass = \Edamam\Api\FoodDatabase\NutrientResponse::class;
+
+    /**
      * The allowed parameters to mass-assign.
      *
      * @var array
