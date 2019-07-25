@@ -24,6 +24,11 @@ class Repository implements RepositoryInterface
         $this->collection = Collection::make($this->process($data));
     }
 
+    public function __toString()
+    {
+        return json_encode($this->all());
+    }
+
     /**
      * Process and cast data if necessary.
      *
