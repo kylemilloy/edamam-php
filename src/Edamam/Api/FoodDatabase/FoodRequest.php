@@ -12,7 +12,7 @@ class FoodRequest extends FoodDatabaseRequest
     protected $responseClass = \Edamam\Api\FoodDatabase\FoodResponse::class;
 
     /**
-     * The allowed parameters to mass-assign.
+     * The allowed parameters to assign.
      *
      * @var array
      */
@@ -108,13 +108,13 @@ class FoodRequest extends FoodDatabaseRequest
     /**
      * Set the ingredient to search.
      *
-     * @param string|null $ingredient
+     * @param mixed $ingredient
      *
      * @throws \Exception
      *
      * @return mixed
      */
-    public function ingredient(?string $ingredient = null)
+    public function ingredient($ingredient = null)
     {
         if (1 === func_num_args()) {
             if ($this->upc()) {
@@ -132,11 +132,11 @@ class FoodRequest extends FoodDatabaseRequest
     /**
      * Get/set the UPC to search.
      *
-     * @param string|null $upc
+     * @param mixed $upc
      *
      * @return mixed
      */
-    public function upc(?string $upc = null)
+    public function upc($upc = null)
     {
         if (1 === func_num_args()) {
             if ($this->ingredient()) {
@@ -154,11 +154,11 @@ class FoodRequest extends FoodDatabaseRequest
     /**
      * Get/set the pagination value.
      *
-     * @param int|null $page
+     * @param mixed $page
      *
      * @return mixed
      */
-    public function page(?int $page = null)
+    public function page($page = null)
     {
         if (1 === func_num_args()) {
             $this->page = $page;
@@ -172,11 +172,11 @@ class FoodRequest extends FoodDatabaseRequest
     /**
      * Get/set the nutrition type.
      *
-     * @param string|null $nutritionType
+     * @param mixed $nutritionType
      *
      * @return mixed
      */
-    public function nutritionType(?string $nutritionType = null)
+    public function nutritionType($nutritionType = null)
     {
         if (1 === func_num_args()) {
             $this->nutritionType = $nutritionType;
@@ -210,14 +210,16 @@ class FoodRequest extends FoodDatabaseRequest
     /**
      * Get/set the specified health label.
      *
-     * @param string $healthLabel
+     * @param mixed $healthLabel
      *
      * @return mixed
      */
-    public function healthLabel(?string $healthLabel = null)
+    public function healthLabel($healthLabel = null)
     {
         if (1 === func_num_args()) {
-            $this->healthLabel = $healthLabel;
+            $this->healthLabel = is_array($healthLabel)
+                ? $healthLabel
+                : [$healthLabel];
 
             return $this;
         }
@@ -328,11 +330,11 @@ class FoodRequest extends FoodDatabaseRequest
     /**
      * Get/set the API category.
      *
-     * @param string $category
+     * @param mixed $category
      *
      * @return mixed
      */
-    public function category(?string $category = null)
+    public function category($category = null)
     {
         if (1 === func_num_args()) {
             $this->category = $category;
@@ -346,14 +348,16 @@ class FoodRequest extends FoodDatabaseRequest
     /**
      * Set the category label.
      *
-     * @param string $categoryLabel
+     * @param mixed $categoryLabel
      *
      * @return mixed
      */
-    public function categoryLabel(?string $categoryLabel = null)
+    public function categoryLabel($categoryLabel = null)
     {
         if (1 === func_num_args()) {
-            $this->categoryLabel = $categoryLabel;
+            $this->categoryLabel = is_array($categoryLabel)
+                ? $categoryLabel
+                : [$categoryLabel];
 
             return $this;
         }

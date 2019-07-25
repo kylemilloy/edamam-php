@@ -25,7 +25,7 @@ class Response implements ResponseInterface
     /**
      * The result collection.
      *
-     * @var mixed
+     * @var \Tightenco\Collect\Support\Collection
      */
     protected $results;
 

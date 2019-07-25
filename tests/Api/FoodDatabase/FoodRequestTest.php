@@ -92,9 +92,9 @@ class FoodRequestTest extends TestCase
     {
         $this->assertNull($this->request->healthLabel());
 
-        $this->assertInstanceOf(FoodRequest::class, $this->request->healthLabel($value = 'test'));
+        $this->assertInstanceOf(FoodRequest::class, $this->request->healthLabel($value = ['test']));
 
-        $this->assertEquals($value, $this->request->healthLabel());
+        $this->assertSame($value, $this->request->healthLabel());
     }
 
     /** @test */
@@ -203,7 +203,7 @@ class FoodRequestTest extends TestCase
     {
         $this->assertNull($this->request->categoryLabel());
 
-        $this->assertInstanceOf(FoodRequest::class, $this->request->categoryLabel($value = 'test'));
+        $this->assertInstanceOf(FoodRequest::class, $this->request->categoryLabel($value = ['test']));
 
         $this->assertEquals($value, $this->request->categoryLabel());
     }
@@ -243,13 +243,13 @@ class FoodRequestTest extends TestCase
         $parameters = [
             'ingredient' => 'test',
             'nutritionType' => 'test',
-            'healthLabel' => 'test',
+            'healthLabel' => ['test'],
             'calories' => [
                 'minimum' => 5,
                 'maximum' => 10,
             ],
             'category' => 'test',
-            'categoryLabel' => 'test',
+            'categoryLabel' => ['test'],
         ];
 
         $instance = FoodRequest::create()->setQueryParameters($parameters);

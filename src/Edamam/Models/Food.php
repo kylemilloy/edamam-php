@@ -8,7 +8,7 @@ use Edamam\Repositories\MeasurementRepository;
 class Food extends Model
 {
     /**
-     * The values that are mass-assignable.
+     * The values that are assignable.
      *
      * @var array
      */
