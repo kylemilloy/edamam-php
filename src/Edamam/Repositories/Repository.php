@@ -31,7 +31,7 @@ class Repository implements RepositoryInterface
      *
      * @return array
      */
-    protected function process(array $data)
+    public function process(array $data): array
     {
         return $data;
     }

@@ -2,6 +2,8 @@
 
 namespace Edamam\Interfaces;
 
+use Tightenco\Collect\Support\Collection;
+
 interface RepositoryInterface
 {
     /**
@@ -11,7 +13,7 @@ interface RepositoryInterface
      *
      * @return array
      */
-    public function process(array $data);
+    public function process(array $data): array;
 
     /**
      * Instantiate the instance.
@@ -43,12 +45,12 @@ interface RepositoryInterface
      *
      * @return array
      */
-    public function toArray();
+    public function toArray(): array;
 
     /**
      * Cast to JSON.
      *
      * @return string
      */
-    public function toJson();
+    public function toJson(): string;
 }
