@@ -1,7 +1,7 @@
 {
   "name": "kylemilloy/edamam-php",
   "description": "PHP Library for the Edamam API",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "type": "library",
   "license": "MIT",
   "authors": [
@@ -11,8 +11,8 @@
     }
   ],
   "require": {
-    "guzzlehttp/guzzle": "^6.3",
-    "tightenco/collect": "^5.8"
+    "guzzlehttp/guzzle": "^7.0",
+    "tightenco/collect": "^9.0"
   },
   "autoload": {
     "psr-4": {
